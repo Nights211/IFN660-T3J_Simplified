@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{53D0565D-9C8A-409D-8EFD-259A2ECEFE0F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GPLexTutorial</RootNamespace>
+    <AssemblyName>GPLexTutorial</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="QUT.ShiftReduceParser">
+      <HintPath>gppg-distro-1_5_2\gppg-distro-1_5_2\binaries\QUT.ShiftReduceParser.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AST\Type.cs" />
+    <Compile Include="AST\ClassBody.cs" />
+    <Compile Include="AST\ClassModifier.cs" />
+    <Compile Include="AST\ClassVariable.cs" />
+    <Compile Include="AST\Declaration.cs" />
+    <Compile Include="AST\ImportDeclaration.cs" />
+    <Compile Include="AST\LexicalScope.cs" />
+    <Compile Include="AST\MethodBody.cs" />
+    <Compile Include="AST\MethodDeclarator.cs" />
+    <Compile Include="AST\MethodModifier.cs" />
+    <Compile Include="AST\PackageDeclaration.cs" />
+    <Compile Include="AST\Result.cs" />
+    <Compile Include="AST\UnAnnArrayType.cs" />
+    <Compile Include="AST\NormalClassDeclaration.cs" />
+    <Compile Include="AST\CompilationUnit.cs" />
+    <Compile Include="AST\Expression.cs" />
+    <Compile Include="AST\FormalParameter.cs" />
+    <Compile Include="AST\MethodDeclaration.cs" />
+    <Compile Include="AST\MethodHeader.cs" />
+    <Compile Include="AST\Node.cs" />
+    <Compile Include="AST\Statement.cs" />
+    <Compile Include="AST\TypeDeclaration.cs" />
+    <Compile Include="AST\UnAnnType.cs" />
+    <Compile Include="AST\VariableDeclaratorId.cs" />
+    <Compile Include="AST\VariableModifier.cs" />
+    <Compile Include="parser.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scanner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="parser.y" />
+    <None Include="scanner.lex" />
+    <None Include="Tests\test1.j" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+       -->
+  <Target Name="BeforeBuild">
+    <Message Text="Generating Scanner and Parser" />
+    <Exec Command="gplex.exe /unicode scanner.lex" />
+    <Exec Command="gppg.exe /gplex parser.y &gt; parser.cs" />
+  </Target>
+  <!--
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
