@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AST\ClassBodyDeclaration.cs" />
     <Compile Include="AST\Type.cs" />
     <Compile Include="AST\ClassBody.cs" />
     <Compile Include="AST\ClassModifier.cs" />

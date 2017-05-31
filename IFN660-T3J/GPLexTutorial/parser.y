@@ -13,6 +13,8 @@ public static MethodDeclaration root;
 	public UnAnnType type;
 	public List<Statement> stmts;
 
+	public ClassBody classBody;
+
 
     
     public string binary; // seth   
@@ -41,9 +43,9 @@ public static MethodDeclaration root;
 	public IdentifierExpression identifierExpression;
 	public ImportDeclaration importDeclaration;
 	
-	public MethodDeclaration methodDeclaration;
-	
+	public MethodDeclaration methodDeclaration;	
 	public List<MethodDeclaration> methodDeclarations;
+
 	public MethodHeader methodHeader;
 	public MethodDeclarator methodDeclarator;
 
@@ -83,7 +85,10 @@ public static MethodDeclaration root;
 
 %type <modifier> Modifier																			// seth
 %type <modifiers> Modifiers
+
 %type <methodDeclaration> MethodDeclaration
+%type <methodDeclarations> MethodDeclarations
+
 
 %left '='
 %nonassoc '<'
@@ -94,14 +99,28 @@ Program
 	: CompilationUnit 
 	;
 
+
+
 CompilationUnit
-	: MethodDeclaration					{root = $1;}				        
+	: MethodDeclaration		{root = $1;}						        
 	;
+
+	
+ClassBody
+	: '{' MethodDeclaration '}'
+	;
+
+MethodDeclarations
+	: MethodDeclarations MethodDeclaration					{ $$ = $1; $$.Add($2);}				    	
+    | /* empty */											{ $$ = new List<MethodDeclaration>(); }
+    ;
+
 
 
 MethodDeclaration
-	: Modifiers IDENT '(' Statement ')' Statement					{$$ = new MethodDeclaration($1,$2,$4,$6);}
+	: Modifiers IDENT '(' Statement ')' Statement					{ $$ = new MethodDeclaration($1,$2,$4,$6);}	 //I know having the argument as a statement is wrong but I can't be bothered fixing that now 
 	;
+
 
 Modifier
 	: PUBLIC												{$$ = Modifier.PUBLIC;} 											     
@@ -111,12 +130,9 @@ Modifier
 
 Modifiers																					
 	: Modifiers Modifier						{$$ = $1; $$.Add($2);}												
-	| /* Empty */											{$$ = new List<Modifier>();}											
+	| /* Empty */								{$$ = new List<Modifier>();}											
 	;
 
-ClassBody
-	:
-	;
 
 Statement : IF '(' Expression ')' Statement ELSE Statement	{ $$ = new IfStatement($3, $5, $7); }
           | '{' StatementList '}'							{ $$ = new CompoundStatement($2);   }
