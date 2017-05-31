@@ -6,9 +6,16 @@ namespace GPLexTutorial
 {
     class Program
     {
-        
-        
-        public static void SemanticAnalysis(Node root)
+
+        /*
+        public static void CodeGeneration(char inputfile, Statement root)
+        {
+            char outputFilename = (char)malloc(strlen(inputfile) + 3);
+            Console.WriteLine(outputFilename, "{0}.il", inputfile);
+            File outputFile = open(outputFilename, "w");
+        }
+        Just trying to interpret directly from the NativeCompiler - Alex */
+            public static void SemanticAnalysis(Node root)
         {
             root.ResolveNames(null);
             root.TypeCheck();

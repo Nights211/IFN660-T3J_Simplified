@@ -5,8 +5,12 @@ using GPLexTutorial.AST;
 
 namespace GPLexTutorial.AST
 {
+
+
     public abstract class Statement : Node
     {
+        public abstract override void GenCode(StreamWriter sw);
+        public int LastLabel;
 
     }
 
@@ -45,7 +49,12 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            cond.GenCode(sw);
+            int elseLabel = LastLabel++;
+            emit(sw, "brfalse {0}", elseLabel);
+            thenStmt.GenCode(sw);
+            emit(sw, "L{0}:", elseLabel);
+            elseStmt.GenCode(sw);
         }
     }
 
@@ -135,7 +144,8 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            expr.GenCode(sw);
+            emit(sw, "pop");
         }
     };
 

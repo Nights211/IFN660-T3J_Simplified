@@ -6,6 +6,7 @@ namespace GPLexTutorial.AST
     public abstract class Expression : Node
     {
         public UnAnnType type;
+        public abstract override void GenCode(StreamWriter sw);
         public abstract void GenStoreCode(StreamWriter sw);
     }
 
@@ -28,7 +29,9 @@ namespace GPLexTutorial.AST
 
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            rhs.GenCode(sw);
+            lhs.GenStoreCode(sw);
+            lhs.GenCode(sw);
         }
 
         public override void GenStoreCode(StreamWriter sw)
@@ -86,7 +89,10 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            lhs.GenCode(sw);
+            rhs.GenCode(sw);
+            emit(sw, "add");
+
         }
         public override void GenStoreCode(StreamWriter sw)
         {
@@ -112,7 +118,7 @@ namespace GPLexTutorial.AST
         }
         public override void TypeCheck()
         {
-            // type.TypeCheck();
+            type.TypeCheck();
         }
         public override void GenCode(StreamWriter sw)
         {
@@ -178,7 +184,21 @@ namespace GPLexTutorial.AST
 
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            lhs.GenCode(sw);
+            rhs.GenCode(sw);
+
+            switch (op)
+            {
+                case '<':
+                    emit(sw, "clt");
+                    break;
+                case '+':
+                    emit(sw, "add");
+                    break;
+                default:
+                    Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
+                    break;
+            }
         }
         public override void GenStoreCode(StreamWriter sw)
         {
@@ -188,6 +208,7 @@ namespace GPLexTutorial.AST
     public class IdentifierExpression : Expression
     {
         private String name;
+
         public IdentifierExpression(String name)
         {
             this.name = name;
@@ -206,11 +227,11 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            emit(sw, "ldloc {0}", name);
         }
         public override void GenStoreCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            emit(sw, "stloc {0}", name);
         }
     }
 }

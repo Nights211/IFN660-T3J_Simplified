@@ -16,6 +16,7 @@ namespace GPLexTutorial.AST
                 Console.Write("    ");
         }
         public abstract void TypeCheck();
+
         public abstract void GenCode(StreamWriter sw);
 
 
