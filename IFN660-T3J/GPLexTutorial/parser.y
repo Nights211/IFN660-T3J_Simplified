@@ -11,7 +11,8 @@ public static MethodDeclaration root;
 	public Expression expr;
 	public Statement stmt;
 	public UnAnnType type;
-	public System.Collections.Generic.List<Statement> stmts;
+	public List<Statement> stmts;
+
 
     
     public string binary; // seth   
@@ -113,7 +114,9 @@ Modifiers
 	| /* Empty */											{$$ = new List<Modifier>();}											
 	;
 
-
+ClassBody
+	:
+	;
 
 Statement : IF '(' Expression ')' Statement ELSE Statement	{ $$ = new IfStatement($3, $5, $7); }
           | '{' StatementList '}'							{ $$ = new CompoundStatement($2);   }

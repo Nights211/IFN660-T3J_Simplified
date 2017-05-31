@@ -10,6 +10,7 @@ namespace GPLexTutorial.AST
     public class ClassBody : Node
     {
         private List<MethodDeclaration> methodDeclarations;
+
         public ClassBody(List<MethodDeclaration> methodDeclarations)
         {
             this.methodDeclarations = methodDeclarations;

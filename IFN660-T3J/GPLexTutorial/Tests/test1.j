@@ -1,6 +1,6 @@
-public static void main (e = 12;)
-{
-	if (x) {y=12;} else {y=10;}
-	int x;
-	x = 42;
-}
+
+    public static void main(e = 1;) 
+    {
+        int x;
+		x=42;
+    }
