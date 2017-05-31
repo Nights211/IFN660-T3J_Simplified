@@ -10,14 +10,14 @@ namespace GPLexTutorial.AST
     public class MethodDeclaration : Statement, Declaration
     {
 
-        public List<Statement> methodBody;
-        public List<MethodModifier> methodModifiers { get; set; }
-        private MethodHeader methodHeader;
+        public Statement methodBody;
+        public List<MethodModifier> methodModifiers;
+        private string name;
 
-        public MethodDeclaration(List<MethodModifier> methodModifiers, MethodHeader methodHeader, List<Statement> methodBody)
+        public MethodDeclaration(List<MethodModifier> methodModifiers, string methodHeader, Statement methodBody)
         {
             this.methodModifiers = methodModifiers;
-            this.methodHeader = methodHeader;
+            this.name = methodHeader;
             this.methodBody = methodBody;
         }
 
@@ -25,7 +25,9 @@ namespace GPLexTutorial.AST
 
 
         public override void dump(int indent)
-        { }
+        {
+            label(indent, "MethodDeclaration{0}\n", name);
+        }
 
         public override bool ResolveNames(LexicalScope scope)
         {
@@ -49,8 +51,8 @@ namespace GPLexTutorial.AST
         }
         public override void TypeCheck()
         {
-            foreach (var Statement in methodBody)
-                Statement.TypeCheck();
+            //foreach (var Statement in methodBody)
+               // Statement.TypeCheck();
         }
         public override void GenCode(StreamWriter sw)
         {
@@ -75,15 +77,15 @@ namespace GPLexTutorial.AST
     */
         }
 
-        public string GetName()
-        {
-            throw new NotImplementedException();  // I have no idea how to do this - Seth
-        }
-
         UnAnnType Declaration.GetType()
         {
             throw new NotImplementedException(); // I can't figure this out - Seth
 
+        }
+
+        public string GetName()
+        {
+            throw new NotImplementedException();  // I have no idea how to do this - Seth
         }
 
         public int GetNumber()

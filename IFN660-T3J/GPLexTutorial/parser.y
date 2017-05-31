@@ -3,7 +3,7 @@
 
 
 %{
-public static Statement root;
+public static MethodDeclaration root;
 %}
 
 %union
@@ -39,7 +39,9 @@ public static Statement root;
 	public List<FormalParameter> formalParameterList;	
 	public IdentifierExpression identifierExpression;
 	public ImportDeclaration importDeclaration;
+	
 	public MethodDeclaration methodDeclaration;
+	
 	public List<MethodDeclaration> methodDeclarations;
 	public MethodHeader methodHeader;
 	public MethodDeclarator methodDeclarator;
@@ -75,8 +77,10 @@ public static Statement root;
 %type <type> UnAnnType
 %type <stmts> StatementList
 
+
 %type <methodModifier> MethodModifier																			// seth
 %type <methodModifiers> MethodModifiers
+%type <methodDeclaration> MethodDeclaration
 
 %left '='
 %nonassoc '<'
@@ -88,7 +92,12 @@ Program
 	;
 
 CompilationUnit
-	: Statement					{root = $1;}				        
+	: MethodDeclaration					{root = $1;}				        
+	;
+
+
+MethodDeclaration
+	: MethodModifiers IDENT Statement														{$$ = new MethodDeclaration($1,$2,$3);}
 	;
 
 MethodModifier

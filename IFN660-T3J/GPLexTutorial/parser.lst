@@ -1,10 +1,10 @@
 
 // ==========================================================================
-//  GPPG error listing for yacc source file <parser.y - 30/05/2017 11:59:52 PM>
+//  GPPG error listing for yacc source file <parser.y - 31/05/2017 10:57:35 AM>
 // ==========================================================================
 //  Version:  1.5.2
 //  Machine:  RAGNOROS
-//  DateTime: 31/05/2017 12:01:53 AM
+//  DateTime: 31/05/2017 10:57:36 AM
 //  UserName: Awal
 // ==========================================================================
 
@@ -50,7 +50,9 @@ public static Statement root;
 	public List<FormalParameter> formalParameterList;	
 	public IdentifierExpression identifierExpression;
 	public ImportDeclaration importDeclaration;
+	
 	public MethodDeclaration methodDeclaration;
+	
 	public List<MethodDeclaration> methodDeclarations;
 	public MethodHeader methodHeader;
 	public MethodDeclarator methodDeclarator;
@@ -86,16 +88,19 @@ public static Statement root;
 %type <type> UnAnnType
 %type <stmts> StatementList
 
+
 %type <methodModifier> MethodModifier																			// seth
 %type <methodModifiers> MethodModifiers
+%type <methodDeclaration> MethodDeclaration
 
 %left '='
 %nonassoc '<'
 %left '+'
 %%
+// Warning: NonTerminal symbol "MethodDeclaration" is unreachable
 // Warning: NonTerminal symbol "MethodModifiers" is unreachable
 // Warning: NonTerminal symbol "MethodModifier" is unreachable
-// ------------------------------------------------------------
+// --------------------------------------------------------------
 
 Program
 	: CompilationUnit 
@@ -103,6 +108,11 @@ Program
 
 CompilationUnit
 	: Statement					{root = $1;}				        
+	;
+
+
+MethodDeclaration
+	: MethodModifiers IDENT Statement														{$$ = new MethodDeclaration($1,$2,$3);}
 	;
 
 MethodModifier
