@@ -26,6 +26,10 @@ namespace GPLexTutorial.AST
 
         public override void dump(int indent)
         {
+            foreach (MethodModifier methodModifier in methodModifiers)
+            {
+                label(indent,"{0} ", methodModifier);
+            }
             label(indent, "MethodDeclaration {0}\n", name);
             methodBody.dump(indent + 1);
         }

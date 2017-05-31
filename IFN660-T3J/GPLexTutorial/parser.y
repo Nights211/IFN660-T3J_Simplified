@@ -102,7 +102,8 @@ MethodDeclaration
 
 MethodModifier
 	: PUBLIC												{$$ = MethodModifier.PUBLIC;} 											     
-	| STATIC        										{$$ = MethodModifier.STATIC;} 											
+	| STATIC        										{$$ = MethodModifier.STATIC;}
+	| VOID 													{$$ = MethodModifier.VOID;}
 	;
 
 MethodModifiers																					
