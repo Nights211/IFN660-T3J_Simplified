@@ -26,7 +26,8 @@ namespace GPLexTutorial.AST
 
         public override void dump(int indent)
         {
-            label(indent, "MethodDeclaration{0}\n", name);
+            label(indent, "MethodDeclaration {0}\n", name);
+            methodBody.dump(indent + 1);
         }
 
         public override bool ResolveNames(LexicalScope scope)
