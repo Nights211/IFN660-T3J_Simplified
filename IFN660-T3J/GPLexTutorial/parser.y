@@ -38,8 +38,10 @@ public static NormalClassDeclaration root;
 	public Expression expression;
 	public List<Expression> expressions;
 	public ExpressionStatement expressionStatement;
+
 	public FormalParameter formalParameter;
 	public List<FormalParameter> formalParameterList;	
+
 	public IdentifierExpression identifierExpression;
 	public ImportDeclaration importDeclaration;
 	
@@ -92,6 +94,7 @@ public static NormalClassDeclaration root;
 %type <normalClassDeclaration> NormalClassDeclaration
 
 %type <formalParameter> FormalParameter
+%type <formalParameterList> FormalParameterList
 
 %left '='
 %nonassoc '<'
@@ -125,7 +128,7 @@ MethodDeclarations
 
 
 MethodDeclaration
-	: Modifiers IDENT '(' FormalParameter ')' Statement					{ $$ = new MethodDeclaration($1,$2,$4,$6);}	 //I know having the argument as a statement is wrong but I can't be bothered fixing that now 
+	: Modifiers IDENT '(' FormalParameterList ')' Statement					{ $$ = new MethodDeclaration($1,$2,$4,$6);}	 //I know having the argument as a statement is wrong but I can't be bothered fixing that now 
 	;
 
 
@@ -157,6 +160,12 @@ UnAnnType : INT											 	{ $$ = new IntType(); }
 FormalParameter
 	: UnAnnType IDENT				{$$ = new FormalParameter($1, $2);}
 	;
+
+FormalParameterList
+	: FormalParameterList FormalParameter				    { $$ = $1; $$.Add($2); }
+    | /* empty */									        { $$ = new List<FormalParameter>(); }
+	;
+	 
 
 StatementList : StatementList Statement				    	{ $$ = $1; $$.Add($2);    }
               | /* empty */									{ $$ = new List<Statement>(); }

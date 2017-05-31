@@ -9,12 +9,12 @@ namespace GPLexTutorial.AST
 {
     public class MethodDeclaration : Node, Declaration
     {
-        public FormalParameter args;
+        public List<FormalParameter> args;
         public Statement methodBody;
         public List<Modifier> Modifiers;
         private string name;
 
-        public MethodDeclaration(List<Modifier> modifiers, string methodHeader, FormalParameter args, Statement methodBody)
+        public MethodDeclaration(List<Modifier> modifiers, string methodHeader, List<FormalParameter> args, Statement methodBody)
         {
             this.Modifiers = modifiers;
             this.name = methodHeader;
@@ -33,7 +33,8 @@ namespace GPLexTutorial.AST
                 label(indent,"{0}", modifier);
             }
             label(indent, "MethodDeclaration {0}", name);
-            args.dump(indent + 1);
+            foreach (FormalParameter child in args)
+                child.dump(indent + 1);
             methodBody.dump(indent + 1);
         }
 

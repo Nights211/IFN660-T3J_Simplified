@@ -19,7 +19,7 @@ namespace GPLexTutorial.AST
         }
         public override void dump(int indent)
         {
-            label(0, " (SomeType {0})\n", name);
+            label(0, " SomeType {0}\n", name);
         }
         public override bool ResolveNames(LexicalScope scope)
         {
