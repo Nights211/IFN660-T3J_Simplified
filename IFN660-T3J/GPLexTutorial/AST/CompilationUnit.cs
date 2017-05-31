@@ -30,17 +30,15 @@ namespace GPLexTutorial.AST
                 child.dump(indent + 1);
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            bool allOK=true;
+
             foreach (var typeDeclaration in typeDeclarations)
             {
-                if(!(typeDeclaration.ResolveNames(scope)))
-                {
-                    allOK = false;
-                }
+                typeDeclaration.ResolveNames(scope);
+
+
             }
-            return allOK;
         }
         public override void TypeCheck()
         {

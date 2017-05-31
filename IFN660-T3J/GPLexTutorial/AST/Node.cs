@@ -6,7 +6,7 @@ namespace GPLexTutorial.AST
 {
     public abstract class Node
     {
-        public abstract bool ResolveNames(LexicalScope scope);
+        public abstract void ResolveNames(LexicalScope scope);
 
         public abstract void dump(int indent);
 

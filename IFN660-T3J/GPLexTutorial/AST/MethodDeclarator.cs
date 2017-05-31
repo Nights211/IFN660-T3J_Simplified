@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace GPLexTutorial.AST
 {
-    public class MethodDeclarator: Node
+    public class MethodDeclarator: Node, Declaration
     {
         private String name;
         public List<FormalParameter> formalParameters;
+        public LexicalScope lexicalScope { get; set; }
         public String GetName() { return name; }
         public List<FormalParameter> GetFormalParameters() { return formalParameters; }
 
@@ -33,17 +34,14 @@ namespace GPLexTutorial.AST
             foreach (var child in formalParameters)
                 child.dump(indent + 1);
         }
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            bool allOK=true;
+            lexicalScope = new LexicalScope(scope);
+            lexicalScope.symbol_table.Add(GetName(), this);
             foreach (var formalParameter in formalParameters)
             {
-                if(!(formalParameter.ResolveNames(scope)))
-                {
-                    allOK = false;
-                }
+                formalParameter.ResolveNames(scope);
             }
-            return allOK;
         }
         public override void TypeCheck()
         {
@@ -53,6 +51,16 @@ namespace GPLexTutorial.AST
             }
         }
         public override void GenCode(StreamWriter sw)
+        {
+            throw new NotImplementedException();
+        }
+
+        UnAnnType Declaration.GetType()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetNumber()
         {
             throw new NotImplementedException();
         }

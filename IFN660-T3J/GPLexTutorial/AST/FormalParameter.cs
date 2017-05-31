@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace GPLexTutorial.AST
 {
-    public class FormalParameter : Expression
+    public class FormalParameter : Expression, Declaration
     {
         UnAnnType formaltype;
         string name;
+        
         public FormalParameter(UnAnnType formaltype, string name)
         {
             this.formaltype = type;
@@ -19,11 +20,14 @@ namespace GPLexTutorial.AST
         }
         public override void dump(int indent)
         {
+            label(indent, "FormalParameter");
             label(0, " SomeType {0}\n", name);
         }
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            throw new NotImplementedException();
+            LexicalScope lexicalScope = new LexicalScope(scope);
+            lexicalScope.symbol_table.Add(GetName(),this);
+            lexicalScope.Resolve(name);
         }
         public override void TypeCheck()
         {
@@ -35,6 +39,21 @@ namespace GPLexTutorial.AST
             throw new NotImplementedException();
         }
         public override void GenStoreCode(StreamWriter sw)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetName()
+        {
+            return name;
+        }
+
+        UnAnnType Declaration.GetType()
+        {
+            return formaltype;
+        }
+
+        public int GetNumber()
         {
             throw new NotImplementedException();
         }

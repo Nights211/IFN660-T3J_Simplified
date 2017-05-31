@@ -36,9 +36,11 @@ namespace GPLexTutorial.AST
             elseStmt.dump(indent + 1, "else");
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return cond.ResolveNames(scope) && thenStmt.ResolveNames(scope) && elseStmt.ResolveNames(scope);
+            cond.ResolveNames(scope);
+            thenStmt.ResolveNames(scope);
+            elseStmt.ResolveNames(scope);
         }
         public override void TypeCheck()
         {
@@ -73,9 +75,10 @@ namespace GPLexTutorial.AST
             cond.dump(indent + 1, "cond");
             whileThen.dump(indent + 1, "then");
         }
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return cond.ResolveNames(scope) && whileThen.ResolveNames(scope);
+            cond.ResolveNames(scope);
+            whileThen.ResolveNames(scope);
         }
         public override void TypeCheck()
         {
@@ -104,9 +107,10 @@ namespace GPLexTutorial.AST
             doThen.dump(indent + 1, "then");
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return cond.ResolveNames(scope) && doThen.ResolveNames(scope);
+            cond.ResolveNames(scope);
+            doThen.ResolveNames(scope);
         }
         public override void TypeCheck()
         {
@@ -134,9 +138,9 @@ namespace GPLexTutorial.AST
             expr.dump(indent + 1);
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return expr.ResolveNames(scope);
+            expr.ResolveNames(scope);
         }
         public override void TypeCheck()
         {
@@ -149,7 +153,7 @@ namespace GPLexTutorial.AST
         }
     };
 
-    public class VariableDeclaration : Statement 
+    public class VariableDeclaration : Statement , Declaration
     {
         private UnAnnType type;
         private string name;
@@ -161,20 +165,20 @@ namespace GPLexTutorial.AST
             this.name = name;
         }
 
+        public UnAnnType GetType() { return type; }
         public string GetName() { return name; }
 
 
         public int GetNumber() { throw new NotImplementedException(); /* This needs to be done, AttributeNumbering or whatever it is called */}
-
         public override void dump(int indent)
         {
             label(indent, "VariableDeclaration {0}\n", name);
             type.dump(indent + 1);
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return true; // This needs to be fixed - Seth
+            type.ResolveNames(scope);
         }
         public override void TypeCheck()
         {
@@ -203,15 +207,15 @@ namespace GPLexTutorial.AST
                 child.dump(indent + 1);
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            bool allOK = true;
+            
             foreach (var statements in stmts)
             {
-                if (!statements.ResolveNames(scope))
-                    allOK = false;
+                statements.ResolveNames(scope);
+                    
             }
-            return allOK;
+            
         }
         public override void TypeCheck()
         {

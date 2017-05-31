@@ -2,7 +2,7 @@ public class Helloworld
 {
     public static void main(int z) 
     {
-        int x;
+        bool x;
 		x=42;
     }
 }

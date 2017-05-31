@@ -15,9 +15,9 @@ namespace GPLexTutorial.AST
             label(indent, "UnannArrayType\n");
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return true;
+         //   return true;
         }
         public override void TypeCheck()
         {

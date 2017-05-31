@@ -17,24 +17,22 @@ namespace GPLexTutorial.AST
         }
         public override void dump(int indent)
         {
-
+            label(indent, "ClassBody\n");
             foreach (var child in methodDeclarations)
                 child.dump(indent + 1);
 
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            bool allOK = true;
+
             foreach (var methodDeclaration in methodDeclarations)
             {
-                if (!methodDeclaration.ResolveNames(scope))
-                {
-                    allOK = false;
-                }
+                methodDeclaration.ResolveNames(scope);
+
 
             }
-            return allOK;
+
         }
         public override void TypeCheck()
         {

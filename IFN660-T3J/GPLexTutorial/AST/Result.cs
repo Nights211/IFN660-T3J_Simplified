@@ -19,9 +19,9 @@ namespace GPLexTutorial.AST
             label(indent, "Result\n");
         }
         
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return true;
+            returnType.ResolveNames(scope);
         }
         public override void TypeCheck()
         {
