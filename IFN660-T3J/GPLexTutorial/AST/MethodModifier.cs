@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace GPLexTutorial.AST
 {
-    public enum MethodModifier { ABSTRACT, FINAL, NATIVE, PRIVATE, PROTECTED, PUBLIC, STATIC, STRICTFP, SYNCHRONIZED, VOID }
+    public enum Modifier { ABSTRACT, FINAL, NATIVE, PRIVATE, PROTECTED, PUBLIC, STATIC, STRICTFP, SYNCHRONIZED, VOID }
 }

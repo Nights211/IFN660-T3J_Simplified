@@ -45,8 +45,10 @@ public static MethodDeclaration root;
 	public List<MethodDeclaration> methodDeclarations;
 	public MethodHeader methodHeader;
 	public MethodDeclarator methodDeclarator;
-	public MethodModifier methodModifier;
-	public List<MethodModifier> methodModifiers;
+
+	public Modifier modifier;
+	public List<Modifier> modifiers;
+
 	public NormalClassDeclaration normalClassDeclaration;
 	public PackageDeclaration packageDeclaration;
 	public IntType IntType;
@@ -78,8 +80,8 @@ public static MethodDeclaration root;
 %type <stmts> StatementList
 
 
-%type <methodModifier> MethodModifier																			// seth
-%type <methodModifiers> MethodModifiers
+%type <modifier> Modifier																			// seth
+%type <modifiers> Modifiers
 %type <methodDeclaration> MethodDeclaration
 
 %left '='
@@ -97,18 +99,18 @@ CompilationUnit
 
 
 MethodDeclaration
-	: MethodModifiers IDENT Statement														{$$ = new MethodDeclaration($1,$2,$3);}
+	: Modifiers IDENT '(' Statement ')' Statement					{$$ = new MethodDeclaration($1,$2,$4,$6);}
 	;
 
-MethodModifier
-	: PUBLIC												{$$ = MethodModifier.PUBLIC;} 											     
-	| STATIC        										{$$ = MethodModifier.STATIC;}
-	| VOID 													{$$ = MethodModifier.VOID;}
+Modifier
+	: PUBLIC												{$$ = Modifier.PUBLIC;} 											     
+	| STATIC        										{$$ = Modifier.STATIC;}
+	| VOID 													{$$ = Modifier.VOID;}
 	;
 
-MethodModifiers																					
-	: MethodModifiers MethodModifier						{$$ = $1; $$.Add($2);}												
-	| /* Empty */											{$$ = new List<MethodModifier>();}											
+Modifiers																					
+	: Modifiers Modifier						{$$ = $1; $$.Add($2);}												
+	| /* Empty */											{$$ = new List<Modifier>();}											
 	;
 
 

@@ -9,16 +9,17 @@ namespace GPLexTutorial.AST
 {
     public class MethodDeclaration : Statement, Declaration
     {
-
+        public Statement args;
         public Statement methodBody;
-        public List<MethodModifier> methodModifiers;
+        public List<Modifier> Modifiers;
         private string name;
 
-        public MethodDeclaration(List<MethodModifier> methodModifiers, string methodHeader, Statement methodBody)
+        public MethodDeclaration(List<Modifier> modifiers, string methodHeader, Statement args, Statement methodBody)
         {
-            this.methodModifiers = methodModifiers;
+            this.Modifiers = modifiers;
             this.name = methodHeader;
             this.methodBody = methodBody;
+            this.args = args;
         }
 
 
@@ -26,11 +27,11 @@ namespace GPLexTutorial.AST
 
         public override void dump(int indent)
         {
-            foreach (MethodModifier methodModifier in methodModifiers)
+            foreach (Modifier modifier in Modifiers)
             {
-                label(indent,"{0} ", methodModifier);
+                label(indent,"{0} ", modifier);
             }
-            label(indent, "MethodDeclaration {0}\n", name);
+            label(indent, "MethodDeclaration {0} (Argument: Right now is a Statment of some kind)\n", name);
             methodBody.dump(indent + 1);
         }
 

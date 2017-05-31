@@ -1,10 +1,10 @@
 
 // ==========================================================================
-//  GPPG error listing for yacc source file <parser.y - 31/05/2017 10:57:35 AM>
+//  GPPG error listing for yacc source file <parser.y - 31/05/2017 11:53:00 AM>
 // ==========================================================================
 //  Version:  1.5.2
 //  Machine:  RAGNOROS
-//  DateTime: 31/05/2017 10:57:36 AM
+//  DateTime: 31/05/2017 11:53:00 AM
 //  UserName: Awal
 // ==========================================================================
 
@@ -14,7 +14,7 @@
 
 
 %{
-public static Statement root;
+public static MethodDeclaration root;
 %}
 
 %union
@@ -56,8 +56,10 @@ public static Statement root;
 	public List<MethodDeclaration> methodDeclarations;
 	public MethodHeader methodHeader;
 	public MethodDeclarator methodDeclarator;
-	public MethodModifier methodModifier;
-	public List<MethodModifier> methodModifiers;
+
+	public Modifier modifier;
+	public List<Modifier> modifiers;
+
 	public NormalClassDeclaration normalClassDeclaration;
 	public PackageDeclaration packageDeclaration;
 	public IntType IntType;
@@ -89,38 +91,45 @@ public static Statement root;
 %type <stmts> StatementList
 
 
-%type <methodModifier> MethodModifier																			// seth
-%type <methodModifiers> MethodModifiers
+%type <modifier> Modifier																			// seth
+%type <modifiers> Modifiers
 %type <methodDeclaration> MethodDeclaration
 
 %left '='
 %nonassoc '<'
 %left '+'
 %%
-// Warning: NonTerminal symbol "MethodDeclaration" is unreachable
-// Warning: NonTerminal symbol "MethodModifiers" is unreachable
-// Warning: NonTerminal symbol "MethodModifier" is unreachable
-// --------------------------------------------------------------
+// Warning: NonTerminal symbol "Modifier" is unreachable
+// Error: NonTerminal symbol "MethodModifiers" has no productions
+// Error: NonTerminal symbol "MethodModifier" has no productions
+// Error: There are 2 non-terminating NonTerminal Symbols
+   //  {MethodModifiers, MethodModifier}
+// Warning: Terminating MethodModifiers fixes the following size-1 NonTerminal set
+   // {MethodModifiers}
+// Warning: Terminating MethodModifier fixes the following size-1 NonTerminal set
+   // {MethodModifier}
+// -------------------------------------------------------------------------------
 
 Program
 	: CompilationUnit 
 	;
 
 CompilationUnit
-	: Statement					{root = $1;}				        
+	: MethodDeclaration					{root = $1;}				        
 	;
 
 
 MethodDeclaration
-	: MethodModifiers IDENT Statement														{$$ = new MethodDeclaration($1,$2,$3);}
+	: Modifiers IDENT '(' Statement ')' Statement					{$$ = new MethodDeclaration($1,$2,$4,$6);}
 	;
 
-MethodModifier
-	: PUBLIC												{$$ = MethodModifier.PUBLIC;} 											     
-	| STATIC        										{$$ = MethodModifier.STATIC;} 											
+Modifier
+	: PUBLIC												{$$ = Modifier.PUBLIC;} 											     
+	| STATIC        										{$$ = Modifier.STATIC;}
+	| VOID 													{$$ = Modifier.VOID;}
 	;
 
-MethodModifiers																					
+Modifiers																					
 	: MethodModifiers MethodModifier						{$$ = $1; $$.Add($2);}												
 	| /* Empty */											{$$ = new List<MethodModifier>();}											
 	;
