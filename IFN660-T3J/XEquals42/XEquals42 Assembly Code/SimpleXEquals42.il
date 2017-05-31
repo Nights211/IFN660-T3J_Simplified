@@ -2,7 +2,6 @@
 .assembly XEquals42
 {
 }
-.module XEquals42.exe
 
 .class HelloWorld
 {
