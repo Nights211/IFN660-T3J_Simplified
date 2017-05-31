@@ -10,12 +10,12 @@ namespace GPLexTutorial.AST
     public class NormalClassDeclaration : Statement, Declaration
     {
         public LexicalScope LexicalScope { get; set; }
-        public List<ClassModifier> classModifiers { get; set; }
-        private List<Statement> classBody;
+        public List<Modifier> classModifiers { get; set; }
+        private List<MethodDeclaration> classBody;
         private String name;
         
 
-        public NormalClassDeclaration(List<ClassModifier> classModifiers, String name, List<Statement> classBody)
+        public NormalClassDeclaration(List<Modifier> classModifiers, String name, List<MethodDeclaration> classBody)
         {
             this.classModifiers = classModifiers;
             this.name = name;
@@ -26,6 +26,8 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "NormalClassDeclaration {0}\n", name);
+            foreach (MethodDeclaration child in classBody)
+                child.dump(indent + 1);
         }
 
         public override bool ResolveNames(LexicalScope scope)

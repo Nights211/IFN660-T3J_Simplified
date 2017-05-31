@@ -3,7 +3,7 @@
 
 
 %{
-public static MethodDeclaration root;
+public static NormalClassDeclaration root;
 %}
 
 %union
@@ -13,7 +13,7 @@ public static MethodDeclaration root;
 	public UnAnnType type;
 	public List<Statement> stmts;
 
-	public ClassBody classBody;
+
 
 
     
@@ -89,6 +89,7 @@ public static MethodDeclaration root;
 %type <methodDeclaration> MethodDeclaration
 %type <methodDeclarations> MethodDeclarations
 
+%type <normalClassDeclaration> NormalClassDeclaration
 
 %left '='
 %nonassoc '<'
@@ -102,13 +103,14 @@ Program
 
 
 CompilationUnit
-	: MethodDeclaration		{root = $1;}						        
+	: NormalClassDeclaration		{root = $1;}						        
 	;
 
 	
-ClassBody
-	: '{' MethodDeclaration '}'
+NormalClassDeclaration
+	: Modifiers CLASS IDENT '{' MethodDeclarations '}' 		{ $$ = new NormalClassDeclaration($1, $3, $5);}		
 	;
+
 
 MethodDeclarations
 	: MethodDeclarations MethodDeclaration					{ $$ = $1; $$.Add($2);}				    	

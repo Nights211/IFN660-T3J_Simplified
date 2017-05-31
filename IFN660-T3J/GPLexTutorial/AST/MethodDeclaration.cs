@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GPLexTutorial.AST
 {
-    public class MethodDeclaration : Statement, Declaration
+    public class MethodDeclaration : Node, Declaration
     {
         public Statement args;
         public Statement methodBody;
@@ -20,6 +20,7 @@ namespace GPLexTutorial.AST
             this.name = methodHeader;
             this.methodBody = methodBody;
             this.args = args;
+
         }
 
 
