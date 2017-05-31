@@ -1,6 +1,6 @@
 public class Helloworld
 {
-    public static void main(e = 1;) 
+    public static void main(int z) 
     {
         int x;
 		x=42;

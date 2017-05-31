@@ -91,6 +91,8 @@ public static NormalClassDeclaration root;
 
 %type <normalClassDeclaration> NormalClassDeclaration
 
+%type <formalParameter> FormalParameter
+
 %left '='
 %nonassoc '<'
 %left '+'
@@ -111,6 +113,9 @@ NormalClassDeclaration
 	: Modifiers CLASS IDENT '{' MethodDeclarations '}' 		{ $$ = new NormalClassDeclaration($1, $3, $5);}		
 	;
 
+ClassBody
+	:
+	;
 
 MethodDeclarations
 	: MethodDeclarations MethodDeclaration					{ $$ = $1; $$.Add($2);}				    	
@@ -120,8 +125,9 @@ MethodDeclarations
 
 
 MethodDeclaration
-	: Modifiers IDENT '(' Statement ')' Statement					{ $$ = new MethodDeclaration($1,$2,$4,$6);}	 //I know having the argument as a statement is wrong but I can't be bothered fixing that now 
+	: Modifiers IDENT '(' FormalParameter ')' Statement					{ $$ = new MethodDeclaration($1,$2,$4,$6);}	 //I know having the argument as a statement is wrong but I can't be bothered fixing that now 
 	;
+
 
 
 Modifier
@@ -142,9 +148,15 @@ Statement : IF '(' Expression ')' Statement ELSE Statement	{ $$ = new IfStatemen
 		  | UnAnnType IDENT ';'								{ $$ = new VariableDeclaration($1,$2); }
 		  ;
 
+
+
 UnAnnType : INT											 	{ $$ = new IntType(); }
           | BOOL										    { $$ = new BoolType(); }
 	      ;
+
+FormalParameter
+	: UnAnnType IDENT				{$$ = new FormalParameter($1, $2);}
+	;
 
 StatementList : StatementList Statement				    	{ $$ = $1; $$.Add($2);    }
               | /* empty */									{ $$ = new List<Statement>(); }

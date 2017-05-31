@@ -9,6 +9,42 @@ namespace GPLexTutorial.AST
 {
     public class FormalParameter : Expression
     {
+        UnAnnType formaltype;
+        string name;
+        public FormalParameter(UnAnnType formaltype, string name)
+        {
+            this.formaltype = type;
+            this.name = name;
+
+        }
+        public override void dump(int indent)
+        {
+            label(0, " (SomeType {0})\n", name);
+        }
+        public override bool ResolveNames(LexicalScope scope)
+        {
+            throw new NotImplementedException();
+        }
+        public override void TypeCheck()
+        {
+
+            //type = formaltype;            This is probably not corret but when we do TypeChecking we need to make sure that the type is set to whatever formaltype is
+        }
+        public override void GenCode(StreamWriter sw)
+        {
+            throw new NotImplementedException();
+        }
+        public override void GenStoreCode(StreamWriter sw)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+        /* I commented out the olf formal parameter and introduced a new simpiler one
+         * 
+         * 
         private List<VariableModifier> variableModifiers;
         private string varDecId;
         private UnAnnArrayType type;
@@ -23,11 +59,11 @@ namespace GPLexTutorial.AST
        // public VariableDeclaratorId GetVarDecId() { return varDecId; }
         public override void dump(int indent)
         {
-            
+
             label(indent, "FormalParameter\n");
            // varDecId.dump(indent + 1, "VariableDeclaratorId"); - Not working, - Seth
             type.dump(indent + 1, "UnAnnArrayType");
-            
+
         }
 
         public override bool ResolveNames(LexicalScope scope)
@@ -58,5 +94,6 @@ namespace GPLexTutorial.AST
         {
             throw new NotImplementedException(); // - This actually needs to be done for this one, I don't know why - Seth
         }
+        */
     }
 }
