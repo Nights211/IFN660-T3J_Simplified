@@ -174,12 +174,12 @@ namespace GPLexTutorial.AST
         public UnAnnType GetType() { return type; }
         public string GetName() { return name; }
 
-
         public int GetNumber() { throw new NotImplementedException(); /* This needs to be done, AttributeNumbering or whatever it is called */}
+
         public override void dump(int indent)
         {
             label(indent, "{0} VariableDeclaration {1}\n", (Declaration)this,  name);
-            type.dump(indent + 1);
+            type.dump(indent + 1, "type");
         }
 
         public override void ResolveNames(LexicalScope scope)

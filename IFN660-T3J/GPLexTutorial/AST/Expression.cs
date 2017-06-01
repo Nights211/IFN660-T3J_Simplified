@@ -23,6 +23,7 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "AssignmentExpression\n");
+            type.dump(indent + 1, "type");
             lhs.dump(indent + 1, "lhs");
             rhs.dump(indent + 1, "rhs");
         }
@@ -69,6 +70,7 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "PlusExpression\n");
+            type.dump(indent + 1, "type");
             lhs.dump(indent + 1, "lhs");
             rhs.dump(indent + 1, "rhs");
         }
@@ -112,7 +114,7 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "NumberExpression {0}\n", value);
-            type.dump(indent + 1);
+            type.dump(indent + 1, "type");
         }
 
         public override void ResolveNames(LexicalScope scope)
@@ -147,6 +149,7 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "BinaryExpression {0}\n", op);
+            type.dump(indent + 1, "type");
             lhs.dump(indent + 1, "lhs");
             rhs.dump(indent + 1, "rhs");
         }
@@ -259,7 +262,7 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "BooleanExpression {0}\n", value);
-            type.dump(indent + 1);
+            type.dump(indent + 1, "type");
         }
         public override void ResolveNames(LexicalScope scope)
         {
