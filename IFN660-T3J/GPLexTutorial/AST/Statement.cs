@@ -196,7 +196,7 @@ namespace GPLexTutorial.AST
         }
     };
 
-    public class CompoundStatement : Statement
+    public class CompoundStatement : Statement 
     {
         private List<Statement> stmts;
         public LexicalScope lexicalScope { get; set; }
@@ -216,16 +216,18 @@ namespace GPLexTutorial.AST
         public override void ResolveNames(LexicalScope scope)
         {
             lexicalScope = new LexicalScope(scope);
-            foreach (var statements in stmts)
+
+            foreach (Statement statement in stmts)
             {
-                declaration = statements as Declaration;
+                declaration = statement as Declaration;
                 if (declaration != null)
+                {
                     lexicalScope.symbol_table[declaration.GetName()] = declaration;
+                }
             }
-            foreach (var statements in stmts)
+            foreach (Statement statement in stmts)
             {
-                statements.ResolveNames(scope);
-                    
+                statement.ResolveNames(lexicalScope);                    
             }
             
         }

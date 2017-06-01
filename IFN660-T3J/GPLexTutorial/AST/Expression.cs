@@ -223,9 +223,10 @@ namespace GPLexTutorial.AST
         }
         public override void dump(int indent)
         {
-            label(indent, "IdentifierExpression {0}\n", name);
+            label(indent, "IdentifierExpression {0} -> {1}\n", name, declaration);
+            type.dump(indent + 1, "type");
         }
-
+        
         public override void ResolveNames(LexicalScope scope)
         {
             if (scope != null)
