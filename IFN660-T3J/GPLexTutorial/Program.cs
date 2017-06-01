@@ -55,7 +55,7 @@ namespace GPLexTutorial
 
             using (StreamWriter outputFile = new StreamWriter(fileLocation + @"\Example.txt"))
             {
-
+            
             }
             */
 
@@ -72,7 +72,6 @@ namespace GPLexTutorial
 
             Parser parser = new Parser(scanner);
             parser.Parse();
-
 
             if (Parser.root == null)
             {
