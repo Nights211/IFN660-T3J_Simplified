@@ -18,7 +18,7 @@ namespace GPLexTutorial
             public static void SemanticAnalysis(Node root)
         {
             root.ResolveNames(null);
-            //root.TypeCheck();
+            root.TypeCheck();
         }
         static void Main(string[] args)
         {

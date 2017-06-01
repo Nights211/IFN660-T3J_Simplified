@@ -31,7 +31,9 @@ namespace GPLexTutorial.AST
             }
             label(indent, "NormalClassDeclaration {0}\n", name);
             foreach (MethodDeclaration child in classBody)
+            {
                 child.dump(indent + 1);
+            }
         }
 
         public override void ResolveNames(LexicalScope scope)
@@ -45,7 +47,10 @@ namespace GPLexTutorial.AST
         public override void TypeCheck()
         {
             foreach (MethodDeclaration Method in classBody)
+            {
                 Method.TypeCheck();
+            }
+
         }
         public override void GenCode(StreamWriter sw)
         {

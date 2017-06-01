@@ -112,7 +112,7 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "NumberExpression {0}\n", value);
-
+            type.dump(indent + 1);
         }
 
         public override void ResolveNames(LexicalScope scope)
@@ -169,7 +169,7 @@ namespace GPLexTutorial.AST
                         Console.Error.WriteLine("invalid arguments for less than expression\n");
                         throw new Exception("TypeCheck error");
                     }
-
+                    type = new BoolType(); 
                     break;
                 case '+':
                     if (!lhs.type.Compatible(rhs.type))
@@ -177,7 +177,7 @@ namespace GPLexTutorial.AST
                         Console.Error.WriteLine("invalid arguments for addition expression\n");
                         throw new Exception("TypeCheck error");
                     }
-
+                    type = new IntType();
                     break;
                 default:
                     Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
@@ -238,7 +238,7 @@ namespace GPLexTutorial.AST
         }
         public override void TypeCheck()
         {
-
+            type = declaration.GetType();
         }
         public override void GenCode(StreamWriter sw)
         {
@@ -259,6 +259,7 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "BooleanExpression {0}\n", value);
+            type.dump(indent + 1);
         }
         public override void ResolveNames(LexicalScope scope)
         {
@@ -266,7 +267,7 @@ namespace GPLexTutorial.AST
         }
         public override void TypeCheck()
         {
-            type.TypeCheck();
+            type = new BoolType();
         }
         public override void GenCode(StreamWriter sw)
         {

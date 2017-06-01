@@ -46,6 +46,12 @@ namespace GPLexTutorial.AST
         {
 
             cond.TypeCheck();
+            if (!cond.type.Equal(new BoolType()))
+            {
+                Console.WriteLine("Invalid type for if statement condition\n");
+                throw new Exception("TypeCheck Error");
+                    
+            }
             thenStmt.TypeCheck();
             elseStmt.TypeCheck();
         }
