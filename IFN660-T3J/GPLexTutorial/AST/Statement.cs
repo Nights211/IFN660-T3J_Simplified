@@ -6,12 +6,9 @@ using GPLexTutorial.AST;
 namespace GPLexTutorial.AST
 {
 
-
     public abstract class Statement : Node
     {
         public abstract override void GenCode(StreamWriter sw);
-        public int LastLabel;
-
     }
 
 
@@ -58,7 +55,7 @@ namespace GPLexTutorial.AST
         public override void GenCode(StreamWriter sw)
         {
             cond.GenCode(sw);
-            int elseLabel = LastLabel++;
+            int elseLabel = Globals.LastLabel++;
             emit(sw, "brfalse {0}", elseLabel);
             thenStmt.GenCode(sw);
             emit(sw, "L{0}:", elseLabel);
@@ -164,17 +161,29 @@ namespace GPLexTutorial.AST
     {
         private UnAnnType type;
         private string name;
-
+        int num;
 
         public VariableDeclaration(UnAnnType type, string name)
         {
             this.type = type;
             this.name = name;
+            num = Globals.LastLocal++;
         }
 
-        public UnAnnType GetType() { return type; }
-        public string GetName() { return name; }
-        public int GetNumber() { throw new NotImplementedException(); /* This needs to be done, AttributeNumbering or whatever it is called */}
+        public UnAnnType GetType()
+        {
+            return type;
+        }
+
+        public string GetName()
+        {
+            return name;
+        }
+
+        public int GetNumber()
+        {
+            return num; /* This needs to be done, AttributeNumbering or whatever it is called */
+        }
 
         public override void dump(int indent)
         {
@@ -193,7 +202,7 @@ namespace GPLexTutorial.AST
 
         public override void GenCode(StreamWriter sw)
         {
-            emit(sw, ".locals init ([{0}] {1} {2}", num, type.CLRName, name.ToString); // Needs that AttributeNumbering thing to work. - Alex
+            emit(sw, ".locals init ([{0}] {1} {2}", num, type.CLRName(), name.ToString()); // Needs that AttributeNumbering thing to work. - Alex
         }
     };
 

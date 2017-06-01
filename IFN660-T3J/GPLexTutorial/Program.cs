@@ -4,26 +4,56 @@ using GPLexTutorial.AST;
 using System.Collections.Generic;
 namespace GPLexTutorial
 {
+           public class Globals
+        {
+            private static int lastLabel;
+            private static int lastLocal;
+
+            public static int LastLabel
+            {
+                get
+                {
+                    return lastLabel;
+                }
+                set
+                {
+                    lastLabel = value;
+                }
+            }
+
+            public static int LastLocal
+            {
+                get
+                {
+                    return lastLocal;
+                }
+                set
+                {
+                    lastLocal = value;
+                }
+            }
+        }
     class Program
     {
+        /* {
+            string outfile = (char)malloc(inputfile.Length + 3);
+            Console.WriteLine(outfile, "{0}.il", inputfile);
+            StreamWriter outputFile = fopen(outfile, "w");
 
-        /*
-        public static void CodeGeneration(char inputfile, Statement root)
-        {
-            char outputFilename = (char)malloc(strlen(inputfile) + 3);
-            Console.WriteLine(outputFilename, "{0}.il", inputfile);
-            File outputFile = open(outputFilename, "w");
-        }
-        Just trying to interpret directly from the NativeCompiler - Alex */
-            public static void SemanticAnalysis(Node root)
+            root.GenCode(outfile);
+        } */
+
+        public static void SemanticAnalysis(Node root)
         {
             root.ResolveNames(null);
             root.TypeCheck();
         }
         static void Main(string[] args)
         {
+        
 
-            Scanner scanner = new Scanner(new FileStream(args[0], FileMode.Open));
+
+         Scanner scanner = new Scanner(new FileStream(args[0], FileMode.Open));
             /*
             Tokens token;
             do
@@ -84,9 +114,9 @@ namespace GPLexTutorial
             //root->dump(0);
             //SemanticAnalysis(Parser.root);
             //compilationUnit.dump(0);
-            //var outfile = new StreamWriter(args[0] + ".il");
-            //Parser.root.GenCode(outfile);
-            //outfile.Close();
+            var outfile = new StreamWriter(args[0] + ".il");
+            Parser.root.GenCode(outfile);
+            outfile.Close();
             }
             //compilationUnit.dump(1);
         }
