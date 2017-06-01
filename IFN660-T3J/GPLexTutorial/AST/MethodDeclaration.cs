@@ -40,14 +40,12 @@ namespace GPLexTutorial.AST
 
         public override void ResolveNames(LexicalScope scope)
         {
-          
-
+;
             methodBody.ResolveNames(scope);
                     foreach(var arg in args)
             {
                 arg.ResolveNames(scope);
             }
-               
         }
         public override void TypeCheck()
         {

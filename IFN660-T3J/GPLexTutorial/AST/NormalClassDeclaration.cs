@@ -38,9 +38,8 @@ namespace GPLexTutorial.AST
 
         public override void ResolveNames(LexicalScope scope)
         {
-            
-            foreach (var Statement in classBody)
-                Statement.ResolveNames(scope);
+            foreach (MethodDeclaration Method in classBody)
+                Method.ResolveNames(scope);
         }
 
         public override void TypeCheck()
