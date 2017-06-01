@@ -172,7 +172,7 @@ namespace GPLexTutorial.AST
         public int GetNumber() { throw new NotImplementedException(); /* This needs to be done, AttributeNumbering or whatever it is called */}
         public override void dump(int indent)
         {
-            label(indent, "VariableDeclaration {0}\n", name);
+            label(indent, "{0} VariableDeclaration {1}\n", (Declaration)this,  name);
             type.dump(indent + 1);
         }
 
@@ -219,9 +219,9 @@ namespace GPLexTutorial.AST
         }
         public override void TypeCheck()
         {
-            foreach (var statements in stmts)
+            foreach (Statement statement in stmts)
             {
-                statements.TypeCheck();
+                statement.TypeCheck();
             }
         }
         public override void GenCode(StreamWriter sw)

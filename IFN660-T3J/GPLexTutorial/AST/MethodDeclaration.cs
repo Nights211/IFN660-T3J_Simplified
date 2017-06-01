@@ -52,8 +52,7 @@ namespace GPLexTutorial.AST
         }
         public override void TypeCheck()
         {
-            //foreach (var Statement in methodBody)
-               // Statement.TypeCheck();
+            methodBody.TypeCheck();
         }
         public override void GenCode(StreamWriter sw)
         {

@@ -112,15 +112,16 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "NumberExpression {0}\n", value);
+
         }
 
         public override void ResolveNames(LexicalScope scope)
         {
-            
+
         }
         public override void TypeCheck()
         {
-            type.TypeCheck();
+            type = new IntType();
         }
         public override void GenCode(StreamWriter sw)
         {
@@ -179,8 +180,8 @@ namespace GPLexTutorial.AST
 
                     break;
                 default:
-                        Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
-                        throw new Exception("TypeCheck error");
+                    Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
+                    throw new Exception("TypeCheck error");
             }
 
         }
@@ -237,6 +238,7 @@ namespace GPLexTutorial.AST
         }
         public override void TypeCheck()
         {
+
         }
         public override void GenCode(StreamWriter sw)
         {
@@ -245,6 +247,35 @@ namespace GPLexTutorial.AST
         public override void GenStoreCode(StreamWriter sw)
         {
             emit(sw, "stloc {0}", name);
+        }
+    }
+    public class BooleanExpression : Expression
+    {
+        private bool value;
+        public BooleanExpression(bool value)
+        {
+            this.value = value;
+        }
+        public override void dump(int indent)
+        {
+            label(indent, "BooleanExpression {0}\n", value);
+        }
+        public override void ResolveNames(LexicalScope scope)
+        {
+
+        }
+        public override void TypeCheck()
+        {
+            type.TypeCheck();
+        }
+        public override void GenCode(StreamWriter sw)
+        {
+            emit(sw, "{0}", value);
+        }
+
+        public override void GenStoreCode(StreamWriter sw)
+        {
+            throw new NotImplementedException();
         }
     }
 }

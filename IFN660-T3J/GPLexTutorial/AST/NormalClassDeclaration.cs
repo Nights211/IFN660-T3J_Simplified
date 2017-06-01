@@ -25,6 +25,10 @@ namespace GPLexTutorial.AST
 
         public override void dump(int indent)
         {
+            foreach (Modifier modifier in classModifiers)
+            {
+                label(indent, "{0} ", modifier);
+            }
             label(indent, "NormalClassDeclaration {0}\n", name);
             foreach (MethodDeclaration child in classBody)
                 child.dump(indent + 1);
@@ -40,8 +44,8 @@ namespace GPLexTutorial.AST
 
         public override void TypeCheck()
         {
-            foreach (var Statement in classBody)
-                Statement.TypeCheck();
+            foreach (MethodDeclaration Method in classBody)
+                Method.TypeCheck();
         }
         public override void GenCode(StreamWriter sw)
         {

@@ -12,14 +12,13 @@ public static NormalClassDeclaration root;
 	public Statement stmt;
 	public UnAnnType type;
 	public List<Statement> stmts;
-
+	public bool boolAnswer;
 
 
 
     
     public string binary; // seth   
 	public string bol;//XinRu
-	public bool boolAnswer;
 	public string charValue;  //Boyu
 	public string fnum; // shilpa
 	public string hex; // seth
@@ -73,6 +72,9 @@ public static NormalClassDeclaration root;
 
 %token <num> NUMBER
 %token <name> IDENT
+%token <boolAnswer> TRUE
+%token <boolAnswer> FALSE
+
 %token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE DO TRUE FALSE
 
 %type <compilationUnit> CompilationUnit 
@@ -175,6 +177,8 @@ StatementList : StatementList Statement				    	{ $$ = $1; $$.Add($2);    }
 
 Expression : NUMBER											{ $$ = new NumberExpression($1);         }
            | IDENT											{ $$ = new IdentifierExpression($1);     }
+		   | TRUE											{ $$ = new BooleanExpression($1);        }
+		   | FALSE											{ $$ = new BooleanExpression($1);        }
 		   | Expression '=' Expression						{ $$ = new AssignmentExpression($1, $3); }
 		   | Expression '+' Expression						{ $$ = new BinaryExpression($1,'+',$3);  }
 		   | Expression '<' Expression						{ $$ = new BinaryExpression($1,'<',$3);  }
