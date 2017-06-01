@@ -50,15 +50,14 @@ namespace GPLexTutorial
         }
         static void Main(string[] args)
         {
-
+            /*
             string fileLocation = @"Z:\UNI\IT\Semester 3\Programming Language Theory\IFN660-T3J_Simplified\IFN660-T3J\GPLexTutorial\GenCodeTests";
 
             using (StreamWriter outputFile = new StreamWriter(fileLocation + @"\Example.txt"))
             {
-                Node.emit(outputFile, String.Format(format, args)); //This is where we need to call the emit() to go through the AST tree and write everything to the text file in the right order. - Alex
-                
-            }
 
+            }
+            */
 
          Scanner scanner = new Scanner(new FileStream(args[0], FileMode.Open));
             /*
@@ -121,9 +120,9 @@ namespace GPLexTutorial
             //root->dump(0);
             //SemanticAnalysis(Parser.root);
             //compilationUnit.dump(0);
-            var outfile = new StreamWriter(args[0] + ".il");
-            Parser.root.GenCode(outfile);
-            outfile.Close();
+            //var outfile = new StreamWriter(args[0] + ".il");
+            //Parser.root.GenCode(outfile);
+            //outfile.Close();
             }
             //compilationUnit.dump(1);
         }

@@ -2,9 +2,9 @@ public class Helloworld
 {
     public static void main(int z) 
     {	
+		int y;
 		int x;
-		x;
-		bool y;
-		y;
+		x = 42;
+		y = x + 1;
     }
 }

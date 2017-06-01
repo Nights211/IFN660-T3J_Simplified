@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GPLexTutorial.AST
 {
-   public class UnAnnArrayType:UnAnnType
+   public abstract class UnAnnArrayType:UnAnnType
     {
     
         public override void dump(int indent)
