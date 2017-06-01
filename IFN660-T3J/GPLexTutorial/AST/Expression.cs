@@ -197,10 +197,10 @@ namespace GPLexTutorial.AST
             switch (op)
             {
                 case '<':
-                    emit(sw, "clt");
+                    emit(sw, "clt {0}, {1}", lhs, rhs);
                     break;
                 case '+':
-                    emit(sw, "add");
+                    emit(sw, "add {0}, {1}", lhs, rhs);
                     break;
                 default:
                     Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);

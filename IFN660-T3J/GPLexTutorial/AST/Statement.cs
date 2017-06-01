@@ -125,7 +125,8 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            cond.GenCode(sw);
+
         }
     }
 
@@ -192,7 +193,7 @@ namespace GPLexTutorial.AST
 
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            emit(sw, ".locals init ([{0}] {1} {2}", num, type.CLRName, name.ToString); // Needs that AttributeNumbering thing to work. - Alex
         }
     };
 
@@ -238,7 +239,10 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            foreach (Statement statement in stmts)
+            {
+                statement.GenCode(sw);
+            }
         }
     }
 

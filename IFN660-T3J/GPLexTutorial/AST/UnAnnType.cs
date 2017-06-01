@@ -14,6 +14,8 @@ namespace GPLexTutorial.AST
             return Equal(other);
         }
 
+        public abstract string CLRName();
+
         public abstract bool Equal(UnAnnType other);
     }
 
@@ -45,6 +47,11 @@ namespace GPLexTutorial.AST
         {
             return other as IntType != null;
         }
+
+        public override string CLRName()
+        {
+            return "int32";
+        }
     }
     public class BoolType : UnAnnType
     {
@@ -71,6 +78,16 @@ namespace GPLexTutorial.AST
         public override bool Equal(UnAnnType other)
         {
             return other as BoolType != null;
+        }
+
+        public override string CLRName()
+        {
+            return "bool";
+        }
+
+        public string CLRNames()
+        {
+            return "bool";
         }
     }
 }
