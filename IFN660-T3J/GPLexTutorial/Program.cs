@@ -37,6 +37,7 @@ namespace GPLexTutorial
             Parser parser = new Parser(scanner);
             parser.Parse();
 
+
             if (Parser.root == null)
             {
                 Console.WriteLine("Root is Null");
