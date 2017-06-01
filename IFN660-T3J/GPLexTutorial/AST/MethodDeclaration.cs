@@ -40,8 +40,7 @@ namespace GPLexTutorial.AST
 
         public override void ResolveNames(LexicalScope scope)
         {
-            lexicalScope = new LexicalScope(scope);
-            lexicalScope.symbol_table.Add(GetName(), this);
+          
 
             methodBody.ResolveNames(scope);
                     foreach(var arg in args)

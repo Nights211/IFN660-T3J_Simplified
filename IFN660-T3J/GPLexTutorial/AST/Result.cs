@@ -21,7 +21,7 @@ namespace GPLexTutorial.AST
         
         public override void ResolveNames(LexicalScope scope)
         {
-            returnType.ResolveNames(scope);
+            
         }
         public override void TypeCheck()
         {
