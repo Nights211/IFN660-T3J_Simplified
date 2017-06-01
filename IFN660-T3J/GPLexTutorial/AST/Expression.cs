@@ -95,7 +95,7 @@ namespace GPLexTutorial.AST
         {
             lhs.GenCode(sw);
             rhs.GenCode(sw);
-            emit(sw, "add");
+            emit(sw, "add" + Environment.NewLine);
 
         }
         public override void GenStoreCode(StreamWriter sw)
@@ -127,7 +127,7 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            emit(sw, "ldc.i4 {0}", value);
+            emit(sw, "ldc.i4 {0}" + Environment.NewLine, value);
         }
 
         public override void GenStoreCode(StreamWriter sw)
@@ -197,10 +197,10 @@ namespace GPLexTutorial.AST
             switch (op)
             {
                 case '<':
-                    emit(sw, "clt {0}, {1}", lhs, rhs);
+                    emit(sw, "clt" + Environment.NewLine, lhs, rhs);
                     break;
                 case '+':
-                    emit(sw, "add {0}, {1}", lhs, rhs);
+                    emit(sw, "add" + Environment.NewLine, lhs, rhs);
                     break;
                 default:
                     Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
@@ -246,11 +246,11 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            emit(sw, "ldloc {0}", name);
+            emit(sw, "ldloc {0}" + Environment.NewLine, name);
         }
         public override void GenStoreCode(StreamWriter sw)
         {
-            emit(sw, "stloc {0}", name);
+            emit(sw, "stloc {0}" + Environment.NewLine, name);
         }
     }
     public class BooleanExpression : Expression

@@ -153,7 +153,7 @@ namespace GPLexTutorial.AST
         public override void GenCode(StreamWriter sw)
         {
             expr.GenCode(sw);
-            emit(sw, "pop");
+            emit(sw, "pop" + Environment.NewLine);
         }
     };
 
@@ -202,7 +202,7 @@ namespace GPLexTutorial.AST
 
         public override void GenCode(StreamWriter sw)
         {
-            emit(sw, ".locals init ([{0}] {1} {2}", num, type.CLRName(), name.ToString());
+            emit(sw, ".locals init ([{0}] {1} {2})" + Environment.NewLine, num, type.CLRName(), name.ToString());
         }
     };
 

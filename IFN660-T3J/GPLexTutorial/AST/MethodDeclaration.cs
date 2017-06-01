@@ -58,11 +58,11 @@ namespace GPLexTutorial.AST
             {
                 emit(sw,"{0} ", modifier);
             }
-            emit(sw, "{0}(string[] args) {{", name);
-            emit(sw, ".entrypoint");
+            emit(sw, "{0}(string[] args)" + Environment.NewLine + "{{" + Environment.NewLine, name);
+            emit(sw, ".entrypoint" + Environment.NewLine);
             methodBody.GenCode(sw);
-            emit(sw, "ret");
-            emit(sw, "}}");
+            emit(sw, "ret" + Environment.NewLine);
+            emit(sw, "}}" + Environment.NewLine);
 
         }
 

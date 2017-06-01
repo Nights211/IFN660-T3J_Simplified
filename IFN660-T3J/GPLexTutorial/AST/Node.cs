@@ -36,7 +36,7 @@ namespace GPLexTutorial.AST
 
         public void emit(StreamWriter sw, String format, params object[] args)
         {
-            sw.WriteLine(String.Format(format, args));
+            sw.Write(String.Format(format, args));
         }
     }
 }

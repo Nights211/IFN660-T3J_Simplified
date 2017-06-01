@@ -52,13 +52,13 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            emit(sw, ".assembly {0} {{ }}", name);
+            emit(sw, ".assembly {0} {{ }}" + Environment.NewLine, name);
             emit(sw, ".class ");
             foreach (Modifier modifier in classModifiers)
             {
                 emit(sw, "{0}", modifier);
             }
-            emit(sw, "{0} {{", name);
+            emit(sw, " {0}" + Environment.NewLine + "{{" + Environment.NewLine, name);
 
             foreach (MethodDeclaration Method in classBody)
             {
