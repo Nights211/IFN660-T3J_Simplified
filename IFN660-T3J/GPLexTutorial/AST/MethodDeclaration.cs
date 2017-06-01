@@ -53,25 +53,14 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-
-            /* deal with this later - Seth
-
-            string modifier = "";
-            string parameter = "";
-            MethodDeclarator methodDeclarator = methodHeader.GetMethodDeclarator();
-            string methodName = methodDeclarator.GetName();
-            List<FormalParameter> parameters = methodDeclarator.GetFormalParameters();
-            foreach(FormalParameter p in parameters)
+            emit(sw, ".method ");
+            foreach (Modifier modifier in Modifiers)
             {
-                parameter += p.GetUnAnnArrayType() + p.GetVarDecId().GetArgName();
+                emit(sw,"{0} ", modifier);
             }
-            foreach (MethodModifier m in methodModifiers)
-            {
-                modifier += m.ToString();
-            }
-            emit(sw, ".method {0} {1} ( {2} ) { {3} }", modifier,methodName ,parameter, methodBody);
+            emit(sw, "{0}(string[] args) {", name);
+            methodBody.GenCode(sw);
 
-    */
         }
 
         UnAnnType Declaration.GetType()
