@@ -12,9 +12,9 @@ namespace GPLexTutorial.AST
         public List<FormalParameter> args;
         public Statement methodBody;
         public List<Modifier> Modifiers;
-        private string name;
-
-        public MethodDeclaration(List<Modifier> modifiers, string methodHeader, List<FormalParameter> args, Statement methodBody)
+        private String name;
+        public LexicalScope lexicalScope{get;set;}
+        public MethodDeclaration(List<Modifier> modifiers, String methodHeader, List<FormalParameter> args, Statement methodBody)
         {
             this.Modifiers = modifiers;
             this.name = methodHeader;
@@ -38,25 +38,17 @@ namespace GPLexTutorial.AST
             methodBody.dump(indent + 1);
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            /* can't figure it out, commenting it out 
+            lexicalScope = new LexicalScope(scope);
+            lexicalScope.symbol_table.Add(GetName(), this);
 
-          
-
-             bool check = true;
-             if (methodBody != null)
-             {
-                 foreach (Statement i in methodsBody)
-                 {
-                     check = check & i.ResolveNames(scopestuffinhereShilpa);
-                 }
-             }
-             return check;
+            methodBody.ResolveNames(scope);
+                    foreach(var arg in args)
+            {
+                arg.ResolveNames(scope);
             }
-            */
-
-            return true; // this really needs to be fixed by someone - Seth
+               
         }
         public override void TypeCheck()
         {
@@ -92,9 +84,9 @@ namespace GPLexTutorial.AST
 
         }
 
-        public string GetName()
+        public String GetName()
         {
-            throw new NotImplementedException();  // I have no idea how to do this - Seth
+            return name;  // I have no idea how to do this - Seth
         }
 
         public int GetNumber()

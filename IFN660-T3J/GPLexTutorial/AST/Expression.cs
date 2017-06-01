@@ -39,9 +39,10 @@ namespace GPLexTutorial.AST
             throw new NotImplementedException();
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return lhs.ResolveNames(scope) && rhs.ResolveNames(scope);
+            lhs.ResolveNames(scope);
+            rhs.ResolveNames(scope);
         }
         public override void TypeCheck()
         {
@@ -72,9 +73,10 @@ namespace GPLexTutorial.AST
             rhs.dump(indent + 1, "rhs");
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return lhs.ResolveNames(scope) && rhs.ResolveNames(scope);
+            lhs.ResolveNames(scope);
+            rhs.ResolveNames(scope);
         }
         public override void TypeCheck()
         {
@@ -112,9 +114,9 @@ namespace GPLexTutorial.AST
             label(indent, "NumberExpression {0}\n", value);
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return true;
+            
         }
         public override void TypeCheck()
         {
@@ -148,9 +150,10 @@ namespace GPLexTutorial.AST
             rhs.dump(indent + 1, "rhs");
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return lhs.ResolveNames(scope) && rhs.ResolveNames(scope);
+            lhs.ResolveNames(scope);
+            rhs.ResolveNames(scope);
         }
         public override void TypeCheck()
         {
@@ -208,6 +211,7 @@ namespace GPLexTutorial.AST
     public class IdentifierExpression : Expression
     {
         private String name;
+        public Declaration declaration { get; set; }
 
         public IdentifierExpression(String name)
         {
@@ -218,9 +222,18 @@ namespace GPLexTutorial.AST
             label(indent, "IdentifierExpression {0}\n", name);
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return true;
+            if (scope != null)
+            {
+                declaration = scope.Resolve(name);
+                if (declaration == null)
+                {
+                    Console.Error.WriteLine("Error: Undeclared identifier {0}\n", name);
+                    throw new Exception("Name Resolution error");
+                }
+
+            }
         }
         public override void TypeCheck()
         {

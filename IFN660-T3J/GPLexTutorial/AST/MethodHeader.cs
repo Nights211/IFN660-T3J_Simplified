@@ -28,9 +28,10 @@ namespace GPLexTutorial.AST
             methodDeclarator.dump(indent + 1, "methodDeclarator");
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return returnType.ResolveNames(scope) && methodDeclarator.ResolveNames(scope);
+            returnType.ResolveNames(scope);
+            methodDeclarator.ResolveNames(scope);
         }
         public override void TypeCheck()
         {

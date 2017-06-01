@@ -11,19 +11,21 @@ namespace GPLexTutorial.AST
         public LexicalScope parentScope;
         public Dictionary<string, Declaration> symbol_table;
 
-        public LexicalScope()
+        public LexicalScope(LexicalScope parentScope)
         {
-            parentScope = null;
-            symbol_table.Clear();
+            this.parentScope = parentScope;
+            symbol_table = new Dictionary<string, Declaration>();
         }
 
         public Declaration ResolveHere(string symbol)
         {
-            foreach (KeyValuePair<string, Declaration> it in symbol_table)
+            if (symbol_table.ContainsKey(symbol))
             {
-                    return it.Value;
+                return symbol_table[symbol];
             }
+
             return null;
+
         }
 
         public Declaration Resolve(string symbol)

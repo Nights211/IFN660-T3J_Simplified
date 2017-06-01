@@ -30,19 +30,12 @@ namespace GPLexTutorial.AST
                 child.dump(indent + 1);
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-
-            /* I have no idea how to do this lexical scope stuff - Seth
-
-            scope.symbol_table.Add(GetName(), this);
             LexicalScope = new LexicalScope(scope);
-            foreach (var Statement in classBody) 
-                Statement.ResolveNames();
-
-                */
-
-            return true; // - Really needs to be fixed - Seth
+            LexicalScope.symbol_table.Add(GetName(), this);
+            foreach (var Statement in classBody)
+                Statement.ResolveNames(scope);
         }
 
         public override void TypeCheck()
@@ -59,10 +52,7 @@ namespace GPLexTutorial.AST
             }
             emit(sw, ".class {0} {1} { {2} }", modifier, name, classBody);
         }
-
-
-
-
+        
 
         public String GetName() { return name; }
 

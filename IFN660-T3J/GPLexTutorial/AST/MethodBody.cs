@@ -16,17 +16,18 @@ namespace GPLexTutorial.AST
             this.BlockStatements = blockStatements;
         }
 
-
- 
+       
 
         public override void dump(int indent)
         {
             label(indent, "MethodBody\n");
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return true; //need to fix this - Seth
+            
+            foreach (var blockStatement in BlockStatements)
+                blockStatement.ResolveNames(scope);
         }
         public override void TypeCheck()
         {

@@ -30,9 +30,9 @@ namespace GPLexTutorial.AST
             label(indent, "IntType\n");
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return true;
+            
         }
         public override void TypeCheck()
         {
@@ -56,9 +56,9 @@ namespace GPLexTutorial.AST
             label(indent, "BoolType\n");
         }
 
-        public override bool ResolveNames(LexicalScope scope)
+        public override void ResolveNames(LexicalScope scope)
         {
-            return true;
+            
         }
         public override void TypeCheck()
         {
