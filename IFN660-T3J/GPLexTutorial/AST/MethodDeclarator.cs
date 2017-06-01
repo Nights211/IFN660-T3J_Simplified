@@ -36,8 +36,7 @@ namespace GPLexTutorial.AST
         }
         public override void ResolveNames(LexicalScope scope)
         {
-            lexicalScope = new LexicalScope(scope);
-            lexicalScope.symbol_table.Add(GetName(), this);
+            
             foreach (var formalParameter in formalParameters)
             {
                 formalParameter.ResolveNames(scope);

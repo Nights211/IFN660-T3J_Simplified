@@ -25,9 +25,7 @@ namespace GPLexTutorial.AST
         }
         public override void ResolveNames(LexicalScope scope)
         {
-            LexicalScope lexicalScope = new LexicalScope(scope);
-            lexicalScope.symbol_table.Add(GetName(),this);
-            lexicalScope.Resolve(name);
+            
         }
         public override void TypeCheck()
         {
