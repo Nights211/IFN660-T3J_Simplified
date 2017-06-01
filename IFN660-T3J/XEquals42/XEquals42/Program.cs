@@ -12,6 +12,7 @@ namespace XEquals42
         {
             int x;
             x = 42;
+            if (x == 42) { x = 3; }
         }
     }
 }
