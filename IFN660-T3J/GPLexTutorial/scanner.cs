@@ -5,10 +5,10 @@
 //  See accompanying file GPLEXcopyright.rtf.
 //
 //  GPLEX Version:  1.2.2
-//  Machine:  RAGNOROS
-//  DateTime: 1/06/2017 10:15:44 PM
-//  UserName: Awal
-//  GPLEX input file <scanner.lex - 1/06/2017 11:18:32 AM>
+//  Machine:  ALEX-PC
+//  DateTime: 01-Jun-17 10:49:57 PM
+//  UserName: Alex
+//  GPLEX input file <scanner.lex - 01-Jun-17 5:55:37 PM>
 //  GPLEX frame file <embedded resource>
 //
 //  Option settings: unicode, parser, minimize

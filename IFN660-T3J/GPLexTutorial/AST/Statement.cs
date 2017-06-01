@@ -182,7 +182,7 @@ namespace GPLexTutorial.AST
 
         public int GetNumber()
         {
-            return num; /* This needs to be done, AttributeNumbering or whatever it is called */
+            return num;
         }
 
         public override void dump(int indent)
@@ -202,7 +202,7 @@ namespace GPLexTutorial.AST
 
         public override void GenCode(StreamWriter sw)
         {
-            emit(sw, ".locals init ([{0}] {1} {2}", num, type.CLRName(), name.ToString()); // Needs that AttributeNumbering thing to work. - Alex
+            emit(sw, ".locals init ([{0}] {1} {2}", num, type.CLRName(), name.ToString());
         }
     };
 
