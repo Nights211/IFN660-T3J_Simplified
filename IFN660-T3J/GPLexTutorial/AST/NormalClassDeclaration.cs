@@ -59,6 +59,10 @@ namespace GPLexTutorial.AST
             }
             emit(sw, "{0} {", name);
 
+            foreach (MethodDeclaration Method in classBody)
+            {
+                Method.GenCode(sw);
+            }
         }
         
 
