@@ -36,6 +36,8 @@ int                          { return (int)Tokens.INT; }
 bool						 { return (int)Tokens.BOOL; }
 static						 { return (int)Tokens.STATIC; }		
 void						 { return (int)Tokens.VOID; }
+while						 { return (int)Tokens.WHILE;}
+do							 { return (int)Tokens.DO; }
 	
 
 {letter}({letter}|{digit})*																	{ yylval.name = yytext; return (int)Tokens.IDENT; }								    //with underscore

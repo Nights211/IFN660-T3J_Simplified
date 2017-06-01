@@ -92,7 +92,7 @@ namespace GPLexTutorial.AST
     {
         private Expression cond;
         private Statement doThen;
-        public DoStatement(Expression cond, Statement doThen)
+        public DoStatement(Statement doThen, Expression cond)
         {
             this.cond = cond; this.doThen = doThen;
         }

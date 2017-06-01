@@ -73,7 +73,7 @@ public static NormalClassDeclaration root;
 
 %token <num> NUMBER
 %token <name> IDENT
-%token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE TRUE FALSE
+%token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE DO TRUE FALSE
 
 %type <compilationUnit> CompilationUnit 
 
@@ -149,6 +149,8 @@ Statement : IF '(' Expression ')' Statement ELSE Statement	{ $$ = new IfStatemen
           | '{' StatementList '}'							{ $$ = new CompoundStatement($2);   }
 		  | Expression ';'									{ $$ = new ExpressionStatement($1); }
 		  | UnAnnType IDENT ';'								{ $$ = new VariableDeclaration($1,$2); }
+		  | WHILE '(' Expression ')' Statement				{ $$ = new WhileStatement($3,$5);}
+		  | DO Statement WHILE '(' Expression ')'			{ $$ = new DoStatement($2, $5); }
 		  ;
 
 
