@@ -2,6 +2,8 @@ public class Helloworld
 {
     public static void Main(int z) 
     {	
-		10++;
+		int x;
+		x = 42;
+		x * 2;
     }
 }

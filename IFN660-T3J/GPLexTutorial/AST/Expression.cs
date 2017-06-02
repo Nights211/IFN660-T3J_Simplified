@@ -182,6 +182,14 @@ namespace GPLexTutorial.AST
                     }
                     type = new IntType();
                     break;
+                case '*':
+                    if (!lhs.type.Compatible(rhs.type))
+                    {
+                        Console.Error.WriteLine("invalid arguments for multiplication expression\n");
+                        throw new Exception("TypeCheck error");
+                    }
+                    type = new IntType();
+                    break;
                 default:
                     Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
                     throw new Exception("TypeCheck error");
@@ -201,6 +209,9 @@ namespace GPLexTutorial.AST
                     break;
                 case '+':
                     emit(sw, "add" + Environment.NewLine);
+                    break;
+                case '*':
+                    emit(sw, "mul" + Environment.NewLine);
                     break;
                 default:
                     Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
@@ -319,14 +330,14 @@ namespace GPLexTutorial.AST
             {
                 expression.GenCode(sw);
                 emit(sw, "ldc.i4 1" + Environment.NewLine);
-                emit(sw, "add");
+                emit(sw, "add" + Environment.NewLine);
                 expression.GenStoreCode(sw);
             }
             else if (name == "--")
             {
                 expression.GenCode(sw);
                 emit(sw, "ldc.i4 1" + Environment.NewLine);
-                emit(sw, "sub");
+                emit(sw, "sub" + Environment.NewLine);
                 expression.GenStoreCode(sw);
             }
             else
