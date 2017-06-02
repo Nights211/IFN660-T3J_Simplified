@@ -54,12 +54,14 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            cond.GenCode(sw);
             int elseLabel = Globals.LastLabel++;
-            emit(sw, "brfalse L{0}" + Environment.NewLine, elseLabel);
-            thenStmt.GenCode(sw);
-            emit(sw, "L{0}:", elseLabel);
+            cond.GenCode(sw);
+            emit(sw, "brtrue L{0}" + Environment.NewLine, elseLabel);
             elseStmt.GenCode(sw);
+            emit(sw, "br M{0} " + Environment.NewLine, elseLabel);
+            emit(sw, "L{0}:", elseLabel);
+            thenStmt.GenCode(sw);
+            emit(sw, "M{0}: ", elseLabel);
         }
     }
 

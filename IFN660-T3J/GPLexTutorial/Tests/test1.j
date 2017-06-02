@@ -6,6 +6,6 @@ public class Helloworld
 		int y;
 		y = 0;
 		x = 5 < 10;
-		if (x) { y = 1; } else { y = y + 1; }
+		if (x) { y = 1; } else { y = y + 5; }
     }
 }
