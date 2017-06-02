@@ -287,38 +287,41 @@ namespace GPLexTutorial.AST
     public class SimpleIncrementExpression : Expression
     {
         private Expression expression;
-        private String op;
-        public SimpleIncrementExpression(Expression expression, String op)
+        private string name;
+
+        public SimpleIncrementExpression(Expression expression, string name)
 
         {
             this.expression = expression;
-            this.op = op;
+            this.name = name;
         }
         public override void dump(int indent)
         {
-            label(indent, "SimpleIncrementExpression {0}\n", op);
+            label(indent, "SimpleIncrementExpression {0}\n", name);
             type.dump(indent + 1, "type");
             expression.dump(indent + 1, "expression");
         }
 
         public override void ResolveNames(LexicalScope scope)
         {
-
+            expression.ResolveNames(scope);
         }
+
         public override void TypeCheck()
         {
-            type = new IntType();
+            expression.TypeCheck();
         }
+
         public override void GenCode(StreamWriter sw)
         {
-            if (op == "++")
+            if (name == "++")
             {
                 expression.GenCode(sw);
                 emit(sw, "ldc.i4 1" + Environment.NewLine);
                 emit(sw, "add");
                 expression.GenStoreCode(sw);
             }
-            else if (op == "--")
+            else if (name == "--")
             {
                 expression.GenCode(sw);
                 emit(sw, "ldc.i4 1" + Environment.NewLine);
@@ -327,7 +330,7 @@ namespace GPLexTutorial.AST
             }
             else
             {
-                Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
+                Console.Error.WriteLine("Unexpected increment operator {0}\n", name);
             }
         }
 
