@@ -76,6 +76,7 @@ public static NormalClassDeclaration root;
 %token <boolAnswer> FALSE
 
 %token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE DO TRUE FALSE
+%token INCREMENT_OPERATOR DECREMENT_OPERATOR
 
 %type <compilationUnit> CompilationUnit 
 
@@ -101,6 +102,7 @@ public static NormalClassDeclaration root;
 %left '='
 %nonassoc '<'
 %left '+'
+%nonassoc INCREMENT_OPERATOR DECREMENT_OPERATOR
 %%
 
 Program
@@ -182,6 +184,10 @@ Expression : NUMBER											{ $$ = new NumberExpression($1);         }
 		   | Expression '=' Expression						{ $$ = new AssignmentExpression($1, $3); }
 		   | Expression '+' Expression						{ $$ = new BinaryExpression($1,'+',$3);  }
 		   | Expression '<' Expression						{ $$ = new BinaryExpression($1,'<',$3);  }
+		   | Expression INCREMENT_OPERATOR					{ $$ = new SimpleIncrementExpression($1, $2);	 }
+		   | Expression DECREMENT_OPERATOR					{ $$ = new SimpleIncrementExpression($1, $2);	 }
+		   | INCREMENT_OPERATOR Expression					{ $$ = new SimpleIncrementExpression($2, $1);	 }
+		   | DECREMENT_OPERATOR Expression					{ $$ = new SimpleIncrementExpression($2, $1);	 }
 		   ;
 
 %%

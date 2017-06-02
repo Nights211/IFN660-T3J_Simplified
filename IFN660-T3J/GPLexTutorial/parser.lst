@@ -1,11 +1,11 @@
 
 // ==========================================================================
-//  GPPG error listing for yacc source file <parser.y - 2/06/2017 10:52:16 AM>
+//  GPPG error listing for yacc source file <parser.y - 02-Jun-17 2:18:23 PM>
 // ==========================================================================
 //  Version:  1.5.2
-//  Machine:  RAGNOROS
-//  DateTime: 2/06/2017 1:11:07 PM
-//  UserName: Awal
+//  Machine:  ALEX-PC
+//  DateTime: 02-Jun-17 2:21:53 PM
+//  UserName: Alex
 // ==========================================================================
 
 
@@ -87,6 +87,7 @@ public static NormalClassDeclaration root;
 %token <boolAnswer> FALSE
 
 %token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE DO TRUE FALSE
+%token INCREMENT_OPERATOR DECREMENT_OPERATOR
 
 %type <compilationUnit> CompilationUnit 
 
@@ -112,6 +113,7 @@ public static NormalClassDeclaration root;
 %left '='
 %nonassoc '<'
 %left '+'
+%nonassoc INCREMENT_OPERATOR DECREMENT_OPERATOR
 %%
 // Warning: NonTerminal symbol "ClassBody" is unreachable
 // ------------------------------------------------------
@@ -195,6 +197,10 @@ Expression : NUMBER											{ $$ = new NumberExpression($1);         }
 		   | Expression '=' Expression						{ $$ = new AssignmentExpression($1, $3); }
 		   | Expression '+' Expression						{ $$ = new BinaryExpression($1,'+',$3);  }
 		   | Expression '<' Expression						{ $$ = new BinaryExpression($1,'<',$3);  }
+		   | Expression INCREMENT_OPERATOR					{ $$ = new SimpleIncrementExpression($1, $2);	 }
+		   | Expression DECREMENT_OPERATOR					{ $$ = new SimpleIncrementExpression($1, $2);	 }
+		   | INCREMENT_OPERATOR Expression					{ $$ = new SimpleIncrementExpression($2, $1);	 }
+		   | DECREMENT_OPERATOR Expression					{ $$ = new SimpleIncrementExpression($2, $1);	 }
 		   ;
 
 %%

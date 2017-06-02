@@ -35,24 +35,18 @@ namespace GPLexTutorial
         }
     class Program
     {
-        /* {
-            string outfile = (char)malloc(inputfile.Length + 3);
-            Console.WriteLine(outfile, "{0}.il", inputfile);
-            StreamWriter outputFile = fopen(outfile, "w");
 
-            root.GenCode(outfile);
-        } */
-
-        public static void SemanticAnalysis(Node root)
+       public static void SemanticAnalysis(Node root)
         {
             root.ResolveNames(null);
             root.TypeCheck();
         }
+       
         static void Main(string[] args)
         {
 
          Scanner scanner = new Scanner(new FileStream(args[0], FileMode.Open));
-            /*
+            
             Tokens token;
             do
             {
@@ -60,7 +54,7 @@ namespace GPLexTutorial
                 Console.WriteLine("token {0}", token);
             }
             while (token != Tokens.EOF);
-            */
+            
 
             Parser parser = new Parser(scanner);
             parser.Parse();

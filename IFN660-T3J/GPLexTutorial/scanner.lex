@@ -58,6 +58,8 @@ false						 { yylval.boolAnswer = false; return (int)Tokens.FALSE;}
 ","                            { return ','; }
 "@"                            { return '@'; }
 ";"                            { return ';'; }
+"++"						   {yylval.name = "++"; return (int)Tokens.INCREMENT_OPERATOR;}
+"--"						   {yylval.name = "--"; return (int)Tokens.DECREMENT_OPERATOR;}
 
 /* Original working operators by Alex */
 
