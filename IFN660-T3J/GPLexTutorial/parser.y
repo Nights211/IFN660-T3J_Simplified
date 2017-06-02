@@ -75,7 +75,7 @@ public static NormalClassDeclaration root;
 %token <boolAnswer> TRUE
 %token <boolAnswer> FALSE
 
-%token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE DO TRUE FALSE
+%token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE DO TRUE FALSE FOR
 %token <name> INCREMENT_OPERATOR
 %token <name> DECREMENT_OPERATOR
 
@@ -157,6 +157,7 @@ Statement : IF '(' Expression ')' Statement ELSE Statement	{ $$ = new IfStatemen
 		  | UnAnnType IDENT ';'								{ $$ = new VariableDeclaration($1,$2); }
 		  | WHILE '(' Expression ')' Statement				{ $$ = new WhileStatement($3,$5);}
 		  | DO Statement WHILE '(' Expression ')'			{ $$ = new DoStatement($2, $5); }
+		  | FOR '(' Expression ';' Expression ';' Expression ')' Statement  { $$ = new BasicForStatement($3, $5, $7, $9);}
 		  ;
 
 

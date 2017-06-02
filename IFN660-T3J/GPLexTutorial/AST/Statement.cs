@@ -150,6 +150,58 @@ namespace GPLexTutorial.AST
         }
     }
 
+    public class BasicForStatement : Statement
+    {
+        private Expression cond, forInit, forUpdate;
+        private Statement forThen;
+
+        public BasicForStatement(Expression forInit, Expression cond, Expression forUpdate, Statement forThen)
+        {
+            this.cond = cond; this.forThen = forThen;
+            this.forInit = forInit; this.forUpdate = forUpdate;
+        }
+
+        public override void dump(int indent)
+        {
+            label(indent, "BasicForStatement\n");
+            forInit.dump(indent + 1, "forInit");
+            cond.dump(indent + 1, "cond");
+            forUpdate.dump(indent + 1, "forUpdate");
+            forThen.dump(indent + 1, "then");
+        }
+
+        public override void ResolveNames(LexicalScope scope)
+        {
+            cond.ResolveNames(scope);
+            forInit.ResolveNames(scope);
+            forUpdate.ResolveNames(scope);
+            forThen.ResolveNames(scope);
+        }
+        public override void TypeCheck()
+        {
+            forInit.TypeCheck();
+            cond.TypeCheck();
+            if (!cond.type.Equal(new BoolType()))
+            {
+                Console.WriteLine("Invalid type for if statement condition\n");
+                throw new Exception("TypeCheck Error");
+
+            }
+            forUpdate.TypeCheck();
+            forThen.TypeCheck();
+        }
+        public override void GenCode(StreamWriter sw)
+        {
+            int elseLabel = Globals.LastLabel++;
+            emit(sw, "L{0}: ", elseLabel);
+            cond.GenCode(sw);
+            emit(sw, "brfalse M{0} " + Environment.NewLine, elseLabel);
+            forThen.GenCode(sw);
+            emit(sw, "br L{0}" + Environment.NewLine, elseLabel);
+            emit(sw, "M{0}: ", elseLabel);
+        }
+    }
+
     public class ExpressionStatement : Statement
     {
         private Expression expr;

@@ -10,10 +10,11 @@ namespace XEquals42
     {
         static void Main(string[] args)
         {
-            int x;
-            x = 42;
-            x++;
-            Console.WriteLine("X = {0}", x);
+            int x = 0;
+            while (x < 5)
+            {
+                x = x + 1;
+            }
         }
     }
 }

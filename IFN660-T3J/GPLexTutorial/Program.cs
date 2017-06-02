@@ -68,7 +68,7 @@ namespace GPLexTutorial
                 Parser.root.dump(0);
             }
 
-             string fileLocation = @"H:\Compiler text output";
+             string fileLocation = @"C:\temp";
 
              using (StreamWriter outputFile = new StreamWriter(fileLocation + @"\Example.il"))
              {
