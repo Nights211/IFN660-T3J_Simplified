@@ -187,6 +187,7 @@ Expression : NUMBER											{ $$ = new NumberExpression($1);         }
 		   | Expression '+' Expression						{ $$ = new BinaryExpression($1,'+',$3);  }
 		   | Expression '<' Expression						{ $$ = new BinaryExpression($1,'<',$3);  }
 		   | Expression '*' Expression						{ $$ = new BinaryExpression($1,'*',$3);  }
+		   | Expression '-' Expression						{ $$ = new BinaryExpression($1,'-',$3);  }
 		   | Expression INCREMENT_OPERATOR					{ $$ = new SimpleIncrementExpression($1, $2);	 }
 		   | Expression DECREMENT_OPERATOR					{ $$ = new SimpleIncrementExpression($1, $2);	 }
 		   | INCREMENT_OPERATOR Expression					{ $$ = new SimpleIncrementExpression($2, $1);	 }

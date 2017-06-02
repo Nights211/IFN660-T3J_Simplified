@@ -11,13 +11,8 @@ ldloc x
 pop
 ldloc x
 ldc.i4 2
-mul
-stloc x
-ldstr      "X = {0}"
-ldloc x
-box        [mscorlib]System.Int32
-call       void [mscorlib]System.Console::WriteLine(string, object)
-nop
+sub
+pop
 ret
 }
 }

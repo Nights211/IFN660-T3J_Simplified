@@ -190,6 +190,14 @@ namespace GPLexTutorial.AST
                     }
                     type = new IntType();
                     break;
+                case '-':
+                    if (!lhs.type.Compatible(rhs.type))
+                    {
+                        Console.Error.WriteLine("invalid arguments for subtraction expression\n");
+                        throw new Exception("TypeCheck error");
+                    }
+                    type = new IntType();
+                    break;
                 default:
                     Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
                     throw new Exception("TypeCheck error");
@@ -212,6 +220,9 @@ namespace GPLexTutorial.AST
                     break;
                 case '*':
                     emit(sw, "mul" + Environment.NewLine);
+                    break;
+                case '-':
+                    emit(sw, "sub" + Environment.NewLine);
                     break;
                 default:
                     Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);

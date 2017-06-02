@@ -4,6 +4,6 @@ public class Helloworld
     {	
 		int x;
 		x = 42;
-		x * 2;
+		x - 2;
     }
 }
