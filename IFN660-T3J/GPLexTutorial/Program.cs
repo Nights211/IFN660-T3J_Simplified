@@ -74,9 +74,9 @@ namespace GPLexTutorial
                 Parser.root.dump(0);
             }
 
-            string fileLocation = @"Z:\UNI\IT\Semester 3\Programming Language Theory\IFN660-T3J_Simplified\IFN660-T3J\GPLexTutorial\GenCodeTests";
+            string fileLocation = @"H:\Compiler text output";
 
-            using (StreamWriter outputFile = new StreamWriter(fileLocation + @"\Example.txt"))
+            using (StreamWriter outputFile = new StreamWriter(fileLocation + @"\Example.il"))
             {
                 Parser.root.GenCode(outputFile);
                 outputFile.Close();

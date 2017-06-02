@@ -56,9 +56,9 @@ namespace GPLexTutorial.AST
             emit(sw, ".class ");
             foreach (Modifier modifier in classModifiers)
             {
-                emit(sw, "{0}", modifier);
+                emit(sw, makeLowerCase("{0} ", modifier));
             }
-            emit(sw, " {0}" + Environment.NewLine + "{{" + Environment.NewLine, name);
+            emit(sw, "{0} " + Environment.NewLine + "{{" + Environment.NewLine, name);
 
             foreach (MethodDeclaration Method in classBody)
             {

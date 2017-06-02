@@ -33,6 +33,11 @@ namespace GPLexTutorial.AST
             dump(i + 1);
         
         }
+        public string makeLowerCase(String format, params object[] args)
+        {
+            String LowerCase = String.Format(format, args);
+            return LowerCase.ToLower();
+        }
 
         public void emit(StreamWriter sw, String format, params object[] args)
         {

@@ -56,7 +56,7 @@ namespace GPLexTutorial.AST
             emit(sw, ".method ");
             foreach (Modifier modifier in Modifiers)
             {
-                emit(sw,"{0} ", modifier);
+                emit(sw, makeLowerCase("{0} ", modifier));
             }
             emit(sw, "{0}(string[] args)" + Environment.NewLine + "{{" + Environment.NewLine, name);
             emit(sw, ".entrypoint" + Environment.NewLine);
