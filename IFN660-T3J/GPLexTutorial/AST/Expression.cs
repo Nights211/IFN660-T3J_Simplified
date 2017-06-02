@@ -310,6 +310,7 @@ namespace GPLexTutorial.AST
         public override void TypeCheck()
         {
             expression.TypeCheck();
+            type = expression.type;
         }
 
         public override void GenCode(StreamWriter sw)
