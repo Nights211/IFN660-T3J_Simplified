@@ -134,7 +134,7 @@ namespace GPLexTutorial.AST
         {
             throw new NotImplementedException();
         }
-    };
+    }
 
     public class BinaryExpression : Expression
     {
@@ -172,7 +172,7 @@ namespace GPLexTutorial.AST
                         Console.Error.WriteLine("invalid arguments for less than expression\n");
                         throw new Exception("TypeCheck error");
                     }
-                    type = new BoolType(); 
+                    type = new BoolType();
                     break;
                 case '+':
                     if (!lhs.type.Compatible(rhs.type))
@@ -197,10 +197,10 @@ namespace GPLexTutorial.AST
             switch (op)
             {
                 case '<':
-                    emit(sw, "clt" + Environment.NewLine, lhs, rhs);
+                    emit(sw, "clt" + Environment.NewLine);
                     break;
                 case '+':
-                    emit(sw, "add" + Environment.NewLine, lhs, rhs);
+                    emit(sw, "add" + Environment.NewLine);
                     break;
                 default:
                     Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
@@ -226,7 +226,7 @@ namespace GPLexTutorial.AST
             label(indent, "IdentifierExpression {0} -> {1}\n", name, declaration);
             type.dump(indent + 1, "type");
         }
-        
+
         public override void ResolveNames(LexicalScope scope)
         {
             if (scope != null)
@@ -276,6 +276,59 @@ namespace GPLexTutorial.AST
         public override void GenCode(StreamWriter sw)
         {
             emit(sw, "{0}", value);
+        }
+
+        public override void GenStoreCode(StreamWriter sw)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SimpleIncrementExpression : Expression
+    {
+        private Expression expression;
+        private String op;
+        public SimpleIncrementExpression(Expression expression, String op)
+
+        {
+            this.expression = expression;
+            this.op = op;
+        }
+        public override void dump(int indent)
+        {
+            label(indent, "SimpleIncrementExpression {0}\n", op);
+            type.dump(indent + 1, "type");
+            expression.dump(indent + 1, "expression");
+        }
+
+        public override void ResolveNames(LexicalScope scope)
+        {
+
+        }
+        public override void TypeCheck()
+        {
+            type = new IntType();
+        }
+        public override void GenCode(StreamWriter sw)
+        {
+            if (op == "++")
+            {
+                expression.GenCode(sw);
+                emit(sw, "ldc.i4 1" + Environment.NewLine);
+                emit(sw, "add");
+                expression.GenStoreCode(sw);
+            }
+            else if (op == "--")
+            {
+                expression.GenCode(sw);
+                emit(sw, "ldc.i4 1" + Environment.NewLine);
+                emit(sw, "sub");
+                expression.GenStoreCode(sw);
+            }
+            else
+            {
+                Console.Error.WriteLine("Unexpected binary operator '%c'\n", op);
+            }
         }
 
         public override void GenStoreCode(StreamWriter sw)
