@@ -88,11 +88,23 @@ namespace GPLexTutorial.AST
         public override void TypeCheck()
         {
             cond.TypeCheck();
+            if (!cond.type.Equal(new BoolType()))
+            {
+                Console.WriteLine("Invalid type for if statement condition\n");
+                throw new Exception("TypeCheck Error");
+
+            }
             whileThen.TypeCheck();
         }
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            int elseLabel = Globals.LastLabel++;
+            emit(sw, "L{0}: ", elseLabel);
+            cond.GenCode(sw);
+            emit(sw, "brfalse M{0} " +Environment.NewLine, elseLabel);
+            whileThen.GenCode(sw);
+            emit(sw, "br L{0}" + Environment.NewLine, elseLabel);
+            emit(sw, "M{0}: ", elseLabel);
         }
     }
 
