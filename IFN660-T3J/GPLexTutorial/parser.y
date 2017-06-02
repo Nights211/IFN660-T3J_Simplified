@@ -76,7 +76,8 @@ public static NormalClassDeclaration root;
 %token <boolAnswer> FALSE
 
 %token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE DO TRUE FALSE
-%token INCREMENT_OPERATOR DECREMENT_OPERATOR
+%token <name> INCREMENT_OPERATOR
+%token <name> DECREMENT_OPERATOR
 
 %type <compilationUnit> CompilationUnit 
 

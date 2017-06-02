@@ -4,9 +4,9 @@
 
 // GPPG version 1.5.2
 // Machine:  ALEX-PC
-// DateTime: 02-Jun-17 2:21:53 PM
+// DateTime: 02-Jun-17 3:56:19 PM
 // UserName: Alex
-// Input file <parser.y - 02-Jun-17 2:18:23 PM>
+// Input file <parser.y - 02-Jun-17 3:44:21 PM>
 
 // options: lines gplex
 
@@ -112,11 +112,11 @@ public class ScanObj {
 [GeneratedCodeAttribute( "Gardens Point Parser Generator", "1.5.2")]
 public class Parser: ShiftReduceParser<ValueType, LexLocation>
 {
-  // Verbatim content from parser.y - 02-Jun-17 2:18:23 PM
+  // Verbatim content from parser.y - 02-Jun-17 3:44:21 PM
 #line 6 "parser.y"
 public static NormalClassDeclaration root;
 #line default
-  // End verbatim content from parser.y - 02-Jun-17 2:18:23 PM
+  // End verbatim content from parser.y - 02-Jun-17 3:44:21 PM
 
 #pragma warning disable 649
   private static Dictionary<int, string> aliases;
@@ -255,173 +255,173 @@ public static NormalClassDeclaration root;
     switch (action)
     {
       case 3: // CompilationUnit -> NormalClassDeclaration
-#line 115 "parser.y"
+#line 116 "parser.y"
                            {root = ValueStack[ValueStack.Depth-1].normalClassDeclaration;}
 #line default
         break;
       case 4: // NormalClassDeclaration -> Modifiers, CLASS, IDENT, '{', MethodDeclarations, '}'
-#line 120 "parser.y"
+#line 121 "parser.y"
                                                       { CurrentSemanticValue.normalClassDeclaration = new NormalClassDeclaration(ValueStack[ValueStack.Depth-6].modifiers, ValueStack[ValueStack.Depth-4].name, ValueStack[ValueStack.Depth-2].methodDeclarations);}
 #line default
         break;
       case 6: // MethodDeclarations -> MethodDeclarations, MethodDeclaration
-#line 128 "parser.y"
+#line 129 "parser.y"
                                             { CurrentSemanticValue.methodDeclarations = ValueStack[ValueStack.Depth-2].methodDeclarations; CurrentSemanticValue.methodDeclarations.Add(ValueStack[ValueStack.Depth-1].methodDeclaration);}
 #line default
         break;
       case 7: // MethodDeclarations -> /* empty */
-#line 129 "parser.y"
+#line 130 "parser.y"
                             { CurrentSemanticValue.methodDeclarations = new List<MethodDeclaration>(); }
 #line default
         break;
       case 8: // MethodDeclaration -> Modifiers, IDENT, '(', FormalParameterList, ')', Statement
-#line 135 "parser.y"
+#line 136 "parser.y"
                                                              { CurrentSemanticValue.methodDeclaration = new MethodDeclaration(ValueStack[ValueStack.Depth-6].modifiers,ValueStack[ValueStack.Depth-5].name,ValueStack[ValueStack.Depth-3].formalParameterList,ValueStack[ValueStack.Depth-1].stmt);}
 #line default
         break;
       case 9: // Modifier -> PUBLIC
-#line 141 "parser.y"
+#line 142 "parser.y"
                      {CurrentSemanticValue.modifier = Modifier.PUBLIC;}
 #line default
         break;
       case 10: // Modifier -> STATIC
-#line 142 "parser.y"
+#line 143 "parser.y"
                            {CurrentSemanticValue.modifier = Modifier.STATIC;}
 #line default
         break;
       case 11: // Modifier -> VOID
-#line 143 "parser.y"
+#line 144 "parser.y"
                      {CurrentSemanticValue.modifier = Modifier.VOID;}
 #line default
         break;
       case 12: // Modifiers -> Modifiers, Modifier
-#line 147 "parser.y"
+#line 148 "parser.y"
                            {CurrentSemanticValue.modifiers = ValueStack[ValueStack.Depth-2].modifiers; CurrentSemanticValue.modifiers.Add(ValueStack[ValueStack.Depth-1].modifier);}
 #line default
         break;
       case 13: // Modifiers -> /* empty */
-#line 148 "parser.y"
+#line 149 "parser.y"
                       {CurrentSemanticValue.modifiers = new List<Modifier>();}
 #line default
         break;
       case 14: // Statement -> IF, '(', Expression, ')', Statement, ELSE, Statement
-#line 152 "parser.y"
+#line 153 "parser.y"
                                                            { CurrentSemanticValue.stmt = new IfStatement(ValueStack[ValueStack.Depth-5].expr, ValueStack[ValueStack.Depth-3].stmt, ValueStack[ValueStack.Depth-1].stmt); }
 #line default
         break;
       case 15: // Statement -> '{', StatementList, '}'
-#line 153 "parser.y"
+#line 154 "parser.y"
                                         { CurrentSemanticValue.stmt = new CompoundStatement(ValueStack[ValueStack.Depth-2].stmts);   }
 #line default
         break;
       case 16: // Statement -> Expression, ';'
-#line 154 "parser.y"
+#line 155 "parser.y"
                              { CurrentSemanticValue.stmt = new ExpressionStatement(ValueStack[ValueStack.Depth-2].expr); }
 #line default
         break;
       case 17: // Statement -> UnAnnType, IDENT, ';'
-#line 155 "parser.y"
+#line 156 "parser.y"
                                  { CurrentSemanticValue.stmt = new VariableDeclaration(ValueStack[ValueStack.Depth-3].type,ValueStack[ValueStack.Depth-2].name); }
 #line default
         break;
       case 18: // Statement -> WHILE, '(', Expression, ')', Statement
-#line 156 "parser.y"
+#line 157 "parser.y"
                                             { CurrentSemanticValue.stmt = new WhileStatement(ValueStack[ValueStack.Depth-3].expr,ValueStack[ValueStack.Depth-1].stmt);}
 #line default
         break;
       case 19: // Statement -> DO, Statement, WHILE, '(', Expression, ')'
-#line 157 "parser.y"
+#line 158 "parser.y"
                                               { CurrentSemanticValue.stmt = new DoStatement(ValueStack[ValueStack.Depth-5].stmt, ValueStack[ValueStack.Depth-2].expr); }
 #line default
         break;
       case 20: // UnAnnType -> INT
-#line 162 "parser.y"
+#line 163 "parser.y"
                             { CurrentSemanticValue.type = new IntType(); }
 #line default
         break;
       case 21: // UnAnnType -> BOOL
-#line 163 "parser.y"
+#line 164 "parser.y"
                               { CurrentSemanticValue.type = new BoolType(); }
 #line default
         break;
       case 22: // FormalParameter -> UnAnnType, IDENT
-#line 167 "parser.y"
+#line 168 "parser.y"
                       {CurrentSemanticValue.formalParameter = new FormalParameter(ValueStack[ValueStack.Depth-2].type, ValueStack[ValueStack.Depth-1].name);}
 #line default
         break;
       case 23: // FormalParameterList -> FormalParameterList, FormalParameter
-#line 171 "parser.y"
+#line 172 "parser.y"
                                               { CurrentSemanticValue.formalParameterList = ValueStack[ValueStack.Depth-2].formalParameterList; CurrentSemanticValue.formalParameterList.Add(ValueStack[ValueStack.Depth-1].formalParameter); }
 #line default
         break;
       case 24: // FormalParameterList -> /* empty */
-#line 172 "parser.y"
+#line 173 "parser.y"
                                   { CurrentSemanticValue.formalParameterList = new List<FormalParameter>(); }
 #line default
         break;
       case 25: // StatementList -> StatementList, Statement
-#line 176 "parser.y"
+#line 177 "parser.y"
                                                 { CurrentSemanticValue.stmts = ValueStack[ValueStack.Depth-2].stmts; CurrentSemanticValue.stmts.Add(ValueStack[ValueStack.Depth-1].stmt);    }
 #line default
         break;
       case 26: // StatementList -> /* empty */
-#line 177 "parser.y"
+#line 178 "parser.y"
                                     { CurrentSemanticValue.stmts = new List<Statement>(); }
 #line default
         break;
       case 27: // Expression -> NUMBER
-#line 180 "parser.y"
+#line 181 "parser.y"
                               { CurrentSemanticValue.expr = new NumberExpression(ValueStack[ValueStack.Depth-1].num);         }
 #line default
         break;
       case 28: // Expression -> IDENT
-#line 181 "parser.y"
+#line 182 "parser.y"
                              { CurrentSemanticValue.expr = new IdentifierExpression(ValueStack[ValueStack.Depth-1].name);     }
 #line default
         break;
       case 29: // Expression -> TRUE
-#line 182 "parser.y"
+#line 183 "parser.y"
                       { CurrentSemanticValue.expr = new BooleanExpression(ValueStack[ValueStack.Depth-1].boolAnswer);        }
 #line default
         break;
       case 30: // Expression -> FALSE
-#line 183 "parser.y"
+#line 184 "parser.y"
                        { CurrentSemanticValue.expr = new BooleanExpression(ValueStack[ValueStack.Depth-1].boolAnswer);        }
 #line default
         break;
       case 31: // Expression -> Expression, '=', Expression
-#line 184 "parser.y"
+#line 185 "parser.y"
                                       { CurrentSemanticValue.expr = new AssignmentExpression(ValueStack[ValueStack.Depth-3].expr, ValueStack[ValueStack.Depth-1].expr); }
 #line default
         break;
       case 32: // Expression -> Expression, '+', Expression
-#line 185 "parser.y"
+#line 186 "parser.y"
                                       { CurrentSemanticValue.expr = new BinaryExpression(ValueStack[ValueStack.Depth-3].expr,'+',ValueStack[ValueStack.Depth-1].expr);  }
 #line default
         break;
       case 33: // Expression -> Expression, '<', Expression
-#line 186 "parser.y"
+#line 187 "parser.y"
                                       { CurrentSemanticValue.expr = new BinaryExpression(ValueStack[ValueStack.Depth-3].expr,'<',ValueStack[ValueStack.Depth-1].expr);  }
 #line default
         break;
       case 34: // Expression -> Expression, INCREMENT_OPERATOR
-#line 187 "parser.y"
-                                         { CurrentSemanticValue.expr = new SimpleIncrementExpression(ValueStack[ValueStack.Depth-2].expr, ValueStack[ValueStack.Depth-1]);	 }
+#line 188 "parser.y"
+                                         { CurrentSemanticValue.expr = new SimpleIncrementExpression(ValueStack[ValueStack.Depth-2].expr, ValueStack[ValueStack.Depth-1].name);	 }
 #line default
         break;
       case 35: // Expression -> Expression, DECREMENT_OPERATOR
-#line 188 "parser.y"
-                                         { CurrentSemanticValue.expr = new SimpleIncrementExpression(ValueStack[ValueStack.Depth-2].expr, ValueStack[ValueStack.Depth-1]);	 }
+#line 189 "parser.y"
+                                         { CurrentSemanticValue.expr = new SimpleIncrementExpression(ValueStack[ValueStack.Depth-2].expr, ValueStack[ValueStack.Depth-1].name);	 }
 #line default
         break;
       case 36: // Expression -> INCREMENT_OPERATOR, Expression
-#line 189 "parser.y"
-                                         { CurrentSemanticValue.expr = new SimpleIncrementExpression(ValueStack[ValueStack.Depth-1].expr, ValueStack[ValueStack.Depth-2]);	 }
+#line 190 "parser.y"
+                                         { CurrentSemanticValue.expr = new SimpleIncrementExpression(ValueStack[ValueStack.Depth-1].expr, ValueStack[ValueStack.Depth-2].name);	 }
 #line default
         break;
       case 37: // Expression -> DECREMENT_OPERATOR, Expression
-#line 190 "parser.y"
-                                         { CurrentSemanticValue.expr = new SimpleIncrementExpression(ValueStack[ValueStack.Depth-1].expr, ValueStack[ValueStack.Depth-2]);	 }
+#line 191 "parser.y"
+                                         { CurrentSemanticValue.expr = new SimpleIncrementExpression(ValueStack[ValueStack.Depth-1].expr, ValueStack[ValueStack.Depth-2].name);	 }
 #line default
         break;
     }
@@ -438,7 +438,7 @@ public static NormalClassDeclaration root;
         return CharToString((char)terminal);
   }
 
-#line 194 "parser.y"
+#line 195 "parser.y"
 
 int yywrap()
 {

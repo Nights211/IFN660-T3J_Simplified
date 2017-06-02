@@ -3,17 +3,22 @@
 //  GPLEX error listing for lex source file <scanner.lex>
 // ==========================================================================
 //  Version:  1.2.2
-//  Machine:  VDI-VL17-017
-//  DateTime: 30/05/2017 2:45:47 PM
-//  UserName: n9645667
+//  Machine:  ALEX-PC
+//  DateTime: 02-Jun-17 3:13:43 PM
+//  UserName: Alex
 // ==========================================================================
 
+
+%namespace GPLexTutorial
+// Error: Value cannot be null.
+   // Parameter name: stream
+// Error: GPLEX: output file <scanner.cs> not opened
+// -------------------------------------------------
 
 %{
 int lines = 0;
 %}
 
-%namespace GPLexTutorial
 
 digit [0-9]
 letter [a-zA-Z]
@@ -40,10 +45,17 @@ oneL [lL]
 
 if                           { return (int)Tokens.IF; }
 else                         { return (int)Tokens.ELSE; }
-
+class						 { return (int)Tokens.CLASS; }
+public						 { return (int)Tokens.PUBLIC; }
 int                          { return (int)Tokens.INT; }
 bool						 { return (int)Tokens.BOOL; }
+static						 { return (int)Tokens.STATIC; }		
+void						 { return (int)Tokens.VOID; }
+while						 { return (int)Tokens.WHILE;}
+do							 { return (int)Tokens.DO; }
 
+true						 { yylval.boolAnswer = true; return (int)Tokens.TRUE;}
+false						 { yylval.boolAnswer = false; return (int)Tokens.FALSE;}
 	
 
 {letter}({letter}|{digit})*																	{ yylval.name = yytext; return (int)Tokens.IDENT; }								    //with underscore
@@ -57,14 +69,12 @@ bool						 { return (int)Tokens.BOOL; }
 "{"                            { return '{'; }
 "}"                            { return '}'; }
 "["                            { return '['; }
-// Warning: This pattern always overrides ""["" 
-// ---------------------------------------------
 "]"                            { return ']'; }
-// Warning: This pattern always overrides ""]"" 
-// ---------------------------------------------
 ","                            { return ','; }
 "@"                            { return '@'; }
 ";"                            { return ';'; }
+"++"						   {yylval.name = "++"; return (int)Tokens.INCREMENT_OPERATOR;}
+"--"						   {yylval.name = "--"; return (int)Tokens.DECREMENT_OPERATOR;}
 
 /* Original working operators by Alex */
 
@@ -83,12 +93,6 @@ bool						 { return (int)Tokens.BOOL; }
 "^"                            { return '^'; }
 "%"                            { return '%'; }
 ":"                            { return ':'; }
-"["							   { return '['; }
-// Warning: This pattern always overridden by ""["" 
-// -------------------------------------------------
-"]"							   { return ']'; }
-// Warning: This pattern always overridden by ""]"" 
-// -------------------------------------------------
 
 
 [\n]		{ lines++;    }
@@ -100,5 +104,6 @@ bool						 { return (int)Tokens.BOOL; }
 void yyerror(string message)
 {
     System.Console.Error.WriteLine("Error: line {0}, {1}", lines, message);
-}// ==========================================================================
+}
+// ==========================================================================
 

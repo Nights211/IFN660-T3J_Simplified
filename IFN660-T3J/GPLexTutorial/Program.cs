@@ -47,13 +47,13 @@ namespace GPLexTutorial
 
          Scanner scanner = new Scanner(new FileStream(args[0], FileMode.Open));
             
-            Tokens token;
+            /* Tokens token;
             do
             {
                 token = (Tokens)scanner.yylex();
                 Console.WriteLine("token {0}", token);
             }
-            while (token != Tokens.EOF);
+            while (token != Tokens.EOF); */
             
 
             Parser parser = new Parser(scanner);
@@ -68,14 +68,14 @@ namespace GPLexTutorial
                 Parser.root.dump(0);
             }
 
-            string fileLocation = @"H:\Compiler text output";
+           /* string fileLocation = @"Z:\UNI\IT\Semester 3\Programming Language Theory\IFN660-T3J_Simplified\IFN660-T3J\GPLexTutorial\GenCodeTests";
 
             using (StreamWriter outputFile = new StreamWriter(fileLocation + @"\Example.il"))
             {
                 Parser.root.GenCode(outputFile);
                 outputFile.Close();
 
-            }
+            } */
             /*
             Parser.root.dump(0);
             CompilationUnit compilationUnit = new CompilationUnit(null, null,
