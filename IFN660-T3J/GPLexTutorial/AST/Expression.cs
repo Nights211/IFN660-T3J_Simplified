@@ -275,7 +275,17 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            emit(sw, "{0}", value);
+            if (value)
+            {
+                emit(sw, "ldc.i4.1" + Environment.NewLine);
+            } else if (!value)
+            {
+                emit(sw, "ldc.i4.0" + Environment.NewLine);
+            } else
+            {
+                Console.WriteLine("Error the boolean value is not assigned correctly");
+            }
+
         }
 
         public override void GenStoreCode(StreamWriter sw)

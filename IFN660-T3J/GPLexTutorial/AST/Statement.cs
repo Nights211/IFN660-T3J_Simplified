@@ -56,7 +56,7 @@ namespace GPLexTutorial.AST
         {
             cond.GenCode(sw);
             int elseLabel = Globals.LastLabel++;
-            emit(sw, "brfalse {0}", elseLabel);
+            emit(sw, "brfalse L{0}" + Environment.NewLine, elseLabel);
             thenStmt.GenCode(sw);
             emit(sw, "L{0}:", elseLabel);
             elseStmt.GenCode(sw);
@@ -118,12 +118,21 @@ namespace GPLexTutorial.AST
         public override void TypeCheck()
         {
             cond.TypeCheck();
+            if (!cond.type.Equal(new BoolType()))
+            {
+                Console.WriteLine("Invalid type for if statement condition\n");
+                throw new Exception("TypeCheck Error");
+
+            }
             doThen.TypeCheck();
         }
         public override void GenCode(StreamWriter sw)
         {
+            int elseLabel = Globals.LastLabel++;
+            emit(sw, "L{0}: ", elseLabel);
+            doThen.GenCode(sw);
             cond.GenCode(sw);
-
+            emit(sw, "brtrue L{0}" + Environment.NewLine, elseLabel);
         }
     }
 

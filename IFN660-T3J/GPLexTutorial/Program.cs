@@ -68,14 +68,14 @@ namespace GPLexTutorial
                 Parser.root.dump(0);
             }
 
-           /* string fileLocation = @"Z:\UNI\IT\Semester 3\Programming Language Theory\IFN660-T3J_Simplified\IFN660-T3J\GPLexTutorial\GenCodeTests";
+             string fileLocation = @"H:\Compiler text output";
 
-            using (StreamWriter outputFile = new StreamWriter(fileLocation + @"\Example.il"))
-            {
-                Parser.root.GenCode(outputFile);
-                outputFile.Close();
+             using (StreamWriter outputFile = new StreamWriter(fileLocation + @"\Example.il"))
+             {
+                 Parser.root.GenCode(outputFile);
+                 outputFile.Close();
 
-            } */
+             }
             /*
             Parser.root.dump(0);
             CompilationUnit compilationUnit = new CompilationUnit(null, null,
@@ -109,12 +109,12 @@ namespace GPLexTutorial
 
             //if (Parser.root != null)
             {
-            //root->dump(0);
-            //SemanticAnalysis(Parser.root);
-            //compilationUnit.dump(0);
-            //var outfile = new StreamWriter(args[0] + ".il");
-            //Parser.root.GenCode(outfile);
-            //outfile.Close();
+                //root->dump(0);
+                //SemanticAnalysis(Parser.root);
+                //compilationUnit.dump(0);
+                //var outfile = new StreamWriter(args[0] + ".il");
+                //Parser.root.GenCode(outfile);
+                //outfile.Close();
             }
             //compilationUnit.dump(1);
         }
