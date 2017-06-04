@@ -30,6 +30,7 @@ namespace GPLexTutorial.AST
                 label(indent, "{0} ", modifier);
             }
             label(indent, "EnumDeclaration {0}\n", name);
+
             //foreach (EnumConstant child in enumBody)
             //{
                 //enumBody.dump(indent + 1);

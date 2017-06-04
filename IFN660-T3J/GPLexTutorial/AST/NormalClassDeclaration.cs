@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GPLexTutorial.AST
 {
-    public class NormalClassDeclaration : Statement, Declaration
+    public class NormalClassDeclaration : TypeDeclaration, Declaration
     {
         public LexicalScope LexicalScope { get; set; }
         public List<Modifier> classModifiers { get; set; }

@@ -3,7 +3,7 @@
 
 
 %{
-public static NormalClassDeclaration root;
+public static CompilationUnit root;
 %}
 
 %union
@@ -31,6 +31,8 @@ public static NormalClassDeclaration root;
 	public string seperator; // frank
     public string strValue;  //Qianyu
 	
+	public EnumDeclaration enumDeclaration;
+
 	public CompilationUnit compilationUnit;
 	public ClassModifier classModifier;
 	public List<ClassModifier> classModifiers;
@@ -75,13 +77,13 @@ public static NormalClassDeclaration root;
 %token <boolAnswer> TRUE
 %token <boolAnswer> FALSE
 
-%token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE DO TRUE FALSE FOR
+%token IF ELSE INT BOOL ABSTRACT OPERATOR PUBLIC CLASS STATIC VOID WHILE DO TRUE FALSE FOR ENUM
 %token <name> INCREMENT_OPERATOR
 %token <name> DECREMENT_OPERATOR
 
 %type <compilationUnit> CompilationUnit 
 
-
+%type<enumDeclaration> EnumDeclaration
 
 %type <expr> Expression
 %type <stmt> Statement
@@ -95,7 +97,10 @@ public static NormalClassDeclaration root;
 %type <methodDeclaration> MethodDeclaration
 %type <methodDeclarations> MethodDeclarations
 
-%type <normalClassDeclaration> NormalClassDeclaration
+%type <normalClassDeclaration> NormalClassDeclaration 
+
+%type <typeDeclaration> TypeDeclaration ClassDeclaration
+%type <typeDeclarations> TypeDeclarations
 
 %type <formalParameter> FormalParameter
 %type <formalParameterList> FormalParameterList
@@ -108,15 +113,30 @@ public static NormalClassDeclaration root;
 %%
 
 Program
-	: CompilationUnit 
+	: CompilationUnit        {root = $1;}
 	;
-
-
 
 CompilationUnit
-	: NormalClassDeclaration		{root = $1;}						        
+	:  TypeDeclarations												{$$ = new CompilationUnit($1); } 
 	;
 
+TypeDeclarations
+	: TypeDeclarations TypeDeclaration																		{$$ = $1; $$.Add($2);}				
+	| /* empty */ 																							{$$ = new List<TypeDeclaration>(); }
+	;
+
+TypeDeclaration 
+	: ClassDeclaration																						{$$ = $1;}
+	;
+
+ClassDeclaration
+	: NormalClassDeclaration																				{$$ = $1;}	
+    | EnumDeclaration                                                                                       {$$=$1;}
+	;
+
+EnumDeclaration
+: Modifiers ENUM IDENT '{' IDENT '}'   {$$=new EnumDeclaration($1, $3, $5);}
+;
 	
 NormalClassDeclaration
 	: Modifiers CLASS IDENT '{' MethodDeclarations '}' 		{ $$ = new NormalClassDeclaration($1, $3, $5);}		

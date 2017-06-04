@@ -39,6 +39,7 @@ void						 { return (int)Tokens.VOID; }
 while						 { return (int)Tokens.WHILE;}
 do							 { return (int)Tokens.DO; }
 for                          { return (int)Tokens.FOR; }
+enum                         { return (int)Tokens.ENUM; }
 
 true						 { yylval.boolAnswer = true; return (int)Tokens.TRUE;}
 false						 { yylval.boolAnswer = false; return (int)Tokens.FALSE;}
