@@ -64,10 +64,10 @@ namespace GPLexTutorial
                 Console.WriteLine("Root is Null");
             } else
             {
-                SemanticAnalysis(Parser.root);
+                //SemanticAnalysis(Parser.root);
                 Parser.root.dump(0);
             }
-
+            /*
              string fileLocation = @"C:\temp";
 
              using (StreamWriter outputFile = new StreamWriter(fileLocation + @"\Example.il"))

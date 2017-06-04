@@ -11,11 +11,12 @@ namespace GPLexTutorial.AST
     {
         public LexicalScope LexicalScope { get; set; }
         public List<Modifier> enumModifiers { get; set; }
-        public string enumBody;
-        public String name;
+        public string name;
+        public EnumConstant enumBody;
+        
 
 
-        public EnumDeclaration(List<Modifier> enumModifiers, String name,string enumBody)
+        public EnumDeclaration(List<Modifier> enumModifiers, String name, EnumConstant enumBody)
         {
             this.enumModifiers = enumModifiers;
             this.name = name;
@@ -30,30 +31,27 @@ namespace GPLexTutorial.AST
                 label(indent, "{0} ", modifier);
             }
             label(indent, "EnumDeclaration {0}\n", name);
-
-            //foreach (EnumConstant child in enumBody)
-            //{
-                //enumBody.dump(indent + 1);
-            //}
+            enumBody.dump(indent + 1);
+            
         }
 
         public override void ResolveNames(LexicalScope scope)
         {
            // foreach (EnumConstant child in enumBody)
-               //enumBody.ResolveNames(scope);
+               enumBody.ResolveNames(scope);
         }
 
         public override void TypeCheck()
         {
             //foreach (EnumConstant child in enumBody)
             //{
-              //  enumBody.TypeCheck();
+                enumBody.TypeCheck();
             //}
 
         }
         public override void GenCode(StreamWriter sw)
         {
-            
+            /*
             emit(sw, ".assembly {0} {{ }}" + Environment.NewLine, name);
             emit(sw, ".class ");
             foreach (Modifier modifier in enumModifiers)
@@ -68,11 +66,12 @@ namespace GPLexTutorial.AST
            // }
 
             emit(sw, "}}");
+            */
             
         }
 
 
-        public String GetName() { return name; }
+     
 
         UnAnnType Declaration.GetType()
         {
@@ -84,7 +83,10 @@ namespace GPLexTutorial.AST
             return 0;
         }
 
-
+        public string GetName()
+        {
+            return name;
+        }
     }
 
 }

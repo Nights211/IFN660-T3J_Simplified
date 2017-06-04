@@ -32,6 +32,7 @@ public static CompilationUnit root;
     public string strValue;  //Qianyu
 	
 	public EnumDeclaration enumDeclaration;
+	public EnumConstant enumConstant;
 
 	public CompilationUnit compilationUnit;
 	public ClassModifier classModifier;
@@ -84,6 +85,7 @@ public static CompilationUnit root;
 %type <compilationUnit> CompilationUnit 
 
 %type<enumDeclaration> EnumDeclaration
+%type<enumConstant> EnumConstant
 
 %type <expr> Expression
 %type <stmt> Statement
@@ -135,9 +137,13 @@ ClassDeclaration
 	;
 
 EnumDeclaration
-: Modifiers ENUM IDENT '{' IDENT '}'   {$$=new EnumDeclaration($1, $3, $5);}
+: Modifiers ENUM IDENT '{' EnumConstant '}'   {$$=new EnumDeclaration($1, $3, $5);}
 ;
-	
+
+EnumConstant
+: IDENT MethodDeclarations  {$$=new EnumConstant($1, $2);}
+;
+
 NormalClassDeclaration
 	: Modifiers CLASS IDENT '{' MethodDeclarations '}' 		{ $$ = new NormalClassDeclaration($1, $3, $5);}		
 	;
