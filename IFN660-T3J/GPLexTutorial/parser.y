@@ -33,6 +33,8 @@ public static CompilationUnit root;
 	
 	public EnumDeclaration enumDeclaration;
 	public EnumConstant enumConstant;
+	public EnumBody enumBody;
+	public List<EnumConstant> enumConstantList;
 
 	public CompilationUnit compilationUnit;
 	public ClassModifier classModifier;
@@ -86,7 +88,9 @@ public static CompilationUnit root;
 
 %type<enumDeclaration> EnumDeclaration
 %type<enumConstant> EnumConstant
-%type<expressions> Expressions
+%type<enumBody> EnumBody
+%type<enumConstantList> EnumConstantList ComaSeparatedEnumConstantList
+%type<expressions> Expressions ArguementList ComaSeparatedExpressions
 
 %type <expr> Expression
 %type <stmt> Statement
@@ -138,16 +142,38 @@ ClassDeclaration
 	;
 
 EnumDeclaration
-: Modifiers ENUM IDENT '{' EnumConstant '}'   {$$=new EnumDeclaration($1, $3, $5);}
+: Modifiers ENUM IDENT '{' EnumBody '}'   {$$=new EnumDeclaration($1, $3, $5);}
+;
+
+EnumBody
+: EnumConstantList  {$$=new EnumBody($1);}
+;
+
+EnumConstantList
+: EnumConstant ComaSeparatedEnumConstantList     { $$ = $2; $$.Add($1);}	
+| 
+;
+
+ComaSeparatedEnumConstantList
+:  ',' EnumConstant ComaSeparatedEnumConstantList     	{$$=$3; $$.Add($2);}
+| /* empty */     {$$=new List<EnumConstant>();}
 ;
 
 EnumConstant
-: IDENT '(' Expressions ')' MethodDeclarations  {$$=new EnumConstant($1, $5, $3);}
+: IDENT ArguementList MethodDeclarations  {$$=new EnumConstant($1, $3, $2);}
+;
+
+ArguementList
+: '(' Expressions ')'    {$$=$2;}
 ;
 
 Expressions
-: Expressions Expression     { $$ = $1; $$.Add($2);}	
-| /* empty */											{ $$ = new List<Expression>(); }
+: Expression ComaSeparatedExpressions    	{ $$ = $2; $$.Add($1);}
+;
+
+ComaSeparatedExpressions
+:  ',' Expression ComaSeparatedExpressions  {$$=$3; $$.Add($2);}
+| /* empty */            {$$=new List<Expression>();}
 ;
 
 NormalClassDeclaration

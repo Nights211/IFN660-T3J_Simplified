@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AST\ClassBodyDeclaration.cs" />
+    <Compile Include="AST\EnumBody.cs" />
     <Compile Include="AST\EnumConstant.cs" />
     <Compile Include="AST\EnumDeclaration.cs" />
     <Compile Include="AST\Type.cs" />

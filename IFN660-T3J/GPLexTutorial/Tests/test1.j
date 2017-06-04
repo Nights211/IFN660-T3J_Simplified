@@ -1,4 +1,4 @@
 public enum helloWorld 
 {
-PENNY(5)
+PENNY(5), DIME(10)
 }

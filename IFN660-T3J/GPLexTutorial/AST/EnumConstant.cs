@@ -7,51 +7,65 @@ using System.Threading.Tasks;
 
 namespace GPLexTutorial.AST
 {
-    public class EnumConstant:Node
+    public class EnumConstant : Node
     {
         public string name;
-        public List<Expression> arguements;
         public List<MethodDeclaration> classBody;
+        public List<Expression> arguementList;
 
-        public EnumConstant(string name, List<MethodDeclaration> classBody, List<Expression> arguements)
+        public EnumConstant(string name, List<MethodDeclaration> classBody, List<Expression> arguementList)
         {
             this.name = name;
             this.classBody = classBody;
-            this.arguements = arguements;
+            this.arguementList = arguementList;
         }
-
-        public override void ResolveNames(LexicalScope scope)
-        {
-            foreach (MethodDeclaration Method in classBody)
-                Method.ResolveNames(scope);
-            foreach (Expression arguement in arguements)
-                arguement.ResolveNames(scope);
-        }
-
         public override void dump(int indent)
         {
             label(indent, "EnumConstant {0}\n", name);
-           foreach (MethodDeclaration child in classBody)
+            foreach(Expression child in arguementList)
             {
                 child.dump(indent + 1);
             }
-            foreach (Expression arguement in arguements)
+            foreach (MethodDeclaration child in classBody)
             {
-                arguement.dump(indent + 1);
-            }
-        }
-
-        public override void TypeCheck()
-        {
-            foreach (Expression arguement in arguements)
-            {
-                arguement.TypeCheck();
+                child.dump(indent + 1);
             }
         }
 
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            foreach (Expression child in arguementList)
+            {
+                child.GenCode(sw);
+            }
+            foreach (MethodDeclaration child in classBody)
+            {
+                child.GenCode(sw);
+            }
+        }
+
+        public override void ResolveNames(LexicalScope scope)
+        {
+            foreach (Expression child in arguementList)
+            {
+                child.ResolveNames(scope);
+            }
+            foreach (MethodDeclaration child in classBody)
+            {
+                child.ResolveNames(scope);
+            }
+        }
+
+        public override void TypeCheck()
+        {
+            foreach (Expression child in arguementList)
+            {
+                child.TypeCheck();
+            }
+            foreach (MethodDeclaration child in classBody)
+            {
+                child.TypeCheck();
+            }
         }
     }
 }

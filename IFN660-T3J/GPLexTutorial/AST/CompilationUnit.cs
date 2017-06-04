@@ -49,7 +49,7 @@ namespace GPLexTutorial.AST
         }
         public override void GenCode(StreamWriter sw)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -12,11 +12,11 @@ namespace GPLexTutorial.AST
         public LexicalScope LexicalScope { get; set; }
         public List<Modifier> enumModifiers { get; set; }
         public string name;
-        public EnumConstant enumBody;
+        public EnumBody enumBody;
         
 
 
-        public EnumDeclaration(List<Modifier> enumModifiers, String name, EnumConstant enumBody)
+        public EnumDeclaration(List<Modifier> enumModifiers, String name, EnumBody enumBody)
         {
             this.enumModifiers = enumModifiers;
             this.name = name;
@@ -37,21 +37,17 @@ namespace GPLexTutorial.AST
 
         public override void ResolveNames(LexicalScope scope)
         {
-           // foreach (EnumConstant child in enumBody)
                enumBody.ResolveNames(scope);
         }
 
         public override void TypeCheck()
         {
-            //foreach (EnumConstant child in enumBody)
-            //{
                 enumBody.TypeCheck();
-            //}
 
         }
         public override void GenCode(StreamWriter sw)
         {
-            /*
+            
             emit(sw, ".assembly {0} {{ }}" + Environment.NewLine, name);
             emit(sw, ".class ");
             foreach (Modifier modifier in enumModifiers)
@@ -60,13 +56,10 @@ namespace GPLexTutorial.AST
             }
             emit(sw, "{0} " + Environment.NewLine + "{{" + Environment.NewLine, name);
 
-            //foreach (EnumConstant child in enumBody)
-           // {
-            //    enumBody.GenCode(sw);
-           // }
+            
+               enumBody.GenCode(sw);
 
             emit(sw, "}}");
-            */
             
         }
 
