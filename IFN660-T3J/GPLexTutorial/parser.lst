@@ -1,10 +1,10 @@
 
 // ==========================================================================
-//  GPPG error listing for yacc source file <parser.y - 6/4/2017 7:30:13 PM>
+//  GPPG error listing for yacc source file <parser.y - 6/4/2017 7:41:25 PM>
 // ==========================================================================
 //  Version:  1.5.2
 //  Machine:  SHILPA
-//  DateTime: 6/4/2017 7:33:42 PM
+//  DateTime: 6/4/2017 7:43:42 PM
 //  UserName: shilp
 // ==========================================================================
 
@@ -97,6 +97,7 @@ public static CompilationUnit root;
 
 %type<enumDeclaration> EnumDeclaration
 %type<enumConstant> EnumConstant
+%type<expressions> Expressions
 
 %type <expr> Expression
 %type <stmt> Statement
@@ -154,7 +155,12 @@ EnumDeclaration
 ;
 
 EnumConstant
-: IDENT MethodDeclarations  {$$=new EnumConstant($1, $2);}
+: IDENT '(' Expressions ')' MethodDeclarations  {$$=new EnumConstant($1, $5, $3);}
+;
+
+Expressions
+: Expressions Expression     { $$ = $1; $$.Add($2);}	
+| /* empty */											{ $$ = new List<Expression>(); }
 ;
 
 NormalClassDeclaration

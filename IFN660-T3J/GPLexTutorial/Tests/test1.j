@@ -1,4 +1,4 @@
-public enum hellowrold 
+public enum helloWorld 
 {
-whatever
+PENNY(5)
 }

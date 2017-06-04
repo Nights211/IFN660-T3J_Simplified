@@ -114,7 +114,7 @@ namespace GPLexTutorial.AST
         public override void dump(int indent)
         {
             label(indent, "NumberExpression {0}\n", value);
-            type.dump(indent + 1, "type");
+            
         }
 
         public override void ResolveNames(LexicalScope scope)

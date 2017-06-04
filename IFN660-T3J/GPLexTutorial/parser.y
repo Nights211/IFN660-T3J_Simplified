@@ -86,6 +86,7 @@ public static CompilationUnit root;
 
 %type<enumDeclaration> EnumDeclaration
 %type<enumConstant> EnumConstant
+%type<expressions> Expressions
 
 %type <expr> Expression
 %type <stmt> Statement
@@ -141,7 +142,12 @@ EnumDeclaration
 ;
 
 EnumConstant
-: IDENT MethodDeclarations  {$$=new EnumConstant($1, $2);}
+: IDENT '(' Expressions ')' MethodDeclarations  {$$=new EnumConstant($1, $5, $3);}
+;
+
+Expressions
+: Expressions Expression     { $$ = $1; $$.Add($2);}	
+| /* empty */											{ $$ = new List<Expression>(); }
 ;
 
 NormalClassDeclaration
